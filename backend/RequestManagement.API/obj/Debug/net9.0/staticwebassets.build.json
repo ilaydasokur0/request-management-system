@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "RaH8TSi1HRSU0ivef16vJSdChXXUewWyZ2nEoNA9NCM=",
+  "Source": "RequestManagement.API",
+  "BasePath": "_content/RequestManagement.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
