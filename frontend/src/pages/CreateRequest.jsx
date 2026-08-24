@@ -23,6 +23,13 @@ function CreateRequest() {
                             <option value="medium">Orta</option>
                             <option value="high">Yüksek</option>
                         </select>
+                        <label htmlFor="department">Departman:</label>
+                        <select name="department" id="department" required>
+                            <option value="">Departman Seçin</option>
+                            <option value="it">IT</option>
+                            <option value="hr">İK</option>
+                            <option value="finance">Finans</option>
+                        </select>
                         <button type="submit">Talep Oluştur</button>
                     </form>
                 </section>

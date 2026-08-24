@@ -177,8 +177,7 @@ main {
   border: 1px solid #ccc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 10px;
-  margin: 20px 30px;
-  width: 95%;
+  margin: 20px 30px 30px;
   display: flex;
   flex-direction: column;
 }
@@ -191,7 +190,7 @@ main {
 .request-form input,
 .request-form select,
 .request-form textarea {
-  padding: 8px;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
@@ -205,6 +204,7 @@ main {
   color: #fff;
   border: none;
   padding: 10px 20px;
+  margin-top: 25px;
   font-size: 16px;
   cursor: pointer;
   border-radius: 4px;
