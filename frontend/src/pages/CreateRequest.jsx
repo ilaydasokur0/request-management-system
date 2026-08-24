@@ -7,7 +7,7 @@ function CreateRequest() {
                 <section className="header">
                     <h1>Yeni Talep Oluştur</h1>
                     <div className="header-line"></div>
-                    <p>Aşağıdaki formu doldurarak yeni bir talep oluşturabilirsiniz.</p>
+                    <p>Formu doldurarak yeni bir talep oluşturabilirsiniz.</p>
                 </section>
 
                 <section className="form-section">

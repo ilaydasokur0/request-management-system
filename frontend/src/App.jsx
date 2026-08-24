@@ -2,6 +2,7 @@ import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/home'
 import CreateRequest from './pages/CreateRequest'
+import MyActions from './pages/MyActions'
 
 function App() {
   return (
@@ -33,6 +34,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/create-request" element={<CreateRequest />} />
+            <Route path="/my-requests" element={<div>Taleplerim Sayfası</div>} />
+            <Route path="/my-actions" element={<MyActions />} />
+            <Route path="/logout" element={<div>Çıkış Yapıldı</div>} />
           </Routes>
         </main>
       </div>
