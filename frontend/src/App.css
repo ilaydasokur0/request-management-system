@@ -59,10 +59,10 @@ main {
 }
 
 .header-line {
-    height: 1px;
-    margin-left: 30px;
-    border-bottom: 1px solid var(--border);
-    width: 95%;
+  height: 1px;
+  margin-left: 30px;
+  border-bottom: 1px solid var(--border);
+  width: 95%;
 }
 
 .header p {
@@ -119,10 +119,7 @@ main {
 .table-section th, .table-section td {
   padding: 10px;
   text-align: left;
-  border-bottom: 1px solid var(--border);
-  border-right: 1px solid var(--border);
-  border-left: 1px solid var(--border);
-  border-top: 1px solid var(--border);
+  border: 1px solid var(--border);
 }
 
 /*  */
@@ -142,7 +139,7 @@ main {
 
 .sidebar h1 {
   font-size: 18px;
-  color: var(--surface); ;
+  color: var(--surface);
   margin: 20px 20px 0 20px;
 }
 
@@ -154,7 +151,7 @@ main {
 
 .sidebar ul{
   list-style-type: none;
-  margin:auto;
+  margin: auto;
   padding: 10px;
 }
 
@@ -180,7 +177,7 @@ main {
   color: var(--surface);
   font-size: 15px;
   display: block;
-  padding: 5px; 
+  padding: 5px;
   transition: background-color 0.3s ease;
   border: var(--sidebar-hover) solid 0.5px;
   border-radius: 6px;
