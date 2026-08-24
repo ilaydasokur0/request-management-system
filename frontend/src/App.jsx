@@ -1,5 +1,5 @@
 import './App.css'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Link } from 'react-router-dom'
 import Home from './pages/home'
 import CreateRequest from './pages/CreateRequest'
 import MyActions from './pages/MyActions'
@@ -27,34 +27,34 @@ const [isRequestsOpen, setIsRequestsOpen] = useState(false)
           <h1>MENÜ</h1>
           <div className="sidebar-line" id="sidebar-line"></div>
           <ul>
-            <li><a href="/">Anasayfa</a></li>
-            <li><a href="/create-request">Talep Oluştur</a></li>
+            <li><Link to="/">Anasayfa</Link></li>
+            <li><Link to="/create-request">Talep Oluştur</Link></li>
 
             <li>
-              <a href="#" onClick={() => setIsActionsOpen(!isActionsOpen)}>
+             <button onClick={() => setIsActionsOpen(!isActionsOpen)}>
                 İşlemlerim ▾
-              </a>
+            </button>
               {isActionsOpen && (
                 <ul className="actions-submenu">
-                  <li className = "sub-menu-item"><a href="/active-actions">Aktif İşlemler</a></li>
-                  <li className = "sub-menu-item"><a href="/past-actions">Geçmiş İşlemler</a></li>
+                  <Link to="/my-actions?view=current" className="sub-menu-item">Aktif İşlemler</Link>
+                  <Link to="/my-actions?view=past" className="sub-menu-item">Geçmiş İşlemler</Link>
                 </ul>
               )}
             </li>
 
             <li>
-              <a href="#" onClick={() => setIsRequestsOpen(!isRequestsOpen)}>
+              <button onClick={() => setIsRequestsOpen(!isRequestsOpen)}>
                 Taleplerim ▾
-              </a>
+              </button>
               {isRequestsOpen && (
                 <ul className="requests-submenu">
-                  <li className = "sub-menu-item"><a href="/active-requests">Aktif Taleplerim</a></li>
-                  <li className = "sub-menu-item"><a href="/past-requests">Geçmiş Taleplerim</a></li>
+                  <li className = "sub-menu-item"><Link to="/my-requests?view=current">Aktif Taleplerim</Link></li>
+                  <li className = "sub-menu-item"><Link to="/my-requests?view=past">Geçmiş Taleplerim</Link></li>
                 </ul>
               )}
             </li>
 
-            <li><a href="/logout">Çıkış Yap</a></li>
+            <li><Link to="/logout">Çıkış Yap</Link></li>
           </ul>
         </nav>
 

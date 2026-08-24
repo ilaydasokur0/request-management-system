@@ -140,7 +140,7 @@ main {
   margin: 0 20px;
 }
 
-.sidebar ul {
+.sidebar ul{
   list-style-type: none;
   margin:auto;
   padding: 10px;
@@ -155,7 +155,15 @@ main {
   align-items: center;
 }
 
-.sidebar a {
+.sidebar button {
+    background: none;
+    font: inherit;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+}
+
+.sidebar a, .sidebar button {
   text-decoration: none;
   color: #faf8f8;
   font-size: 15px;
@@ -166,7 +174,7 @@ main {
   border-radius: 6px;
 }
 
-.sidebar a:hover {
+.sidebar a:hover, .sidebar button:hover {
   background-color: #6c5a5c;
 }
 
