@@ -35,8 +35,8 @@ const [isRequestsOpen, setIsRequestsOpen] = useState(false)
               </a>
               {isActionsOpen && (
                 <ul className="actions-submenu">
-                  <li className = "sub-menu-item"><a href="/my-requests">Aktif İşlemler</a></li>
-                  <li className = "sub-menu-item"><a href="/my-actions">Geçmiş İşlemler</a></li>
+                  <li className = "sub-menu-item"><a href="/active-actions">Aktif İşlemler</a></li>
+                  <li className = "sub-menu-item"><a href="/past-actions">Geçmiş İşlemler</a></li>
                 </ul>
               )}
             </li>
@@ -47,8 +47,8 @@ const [isRequestsOpen, setIsRequestsOpen] = useState(false)
               </a>
               {isRequestsOpen && (
                 <ul className="requests-submenu">
-                  <li className = "sub-menu-item"><a href="/my-requests">Aktif Taleplerim</a></li>
-                  <li className = "sub-menu-item"><a href="/my-actions">Geçmiş Taleplerim</a></li>
+                  <li className = "sub-menu-item"><a href="/active-requests">Aktif Taleplerim</a></li>
+                  <li className = "sub-menu-item"><a href="/past-requests">Geçmiş Taleplerim</a></li>
                 </ul>
               )}
             </li>
@@ -61,8 +61,10 @@ const [isRequestsOpen, setIsRequestsOpen] = useState(false)
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/create-request" element={<CreateRequest />} />
-            <Route path="/my-requests" element={<div>Taleplerim Sayfası</div>} />
-            <Route path="/my-actions" element={<MyActions />} />
+            <Route path="/active-requests" element={<MyRequests />} />
+            <Route path="/past-requests" element={<MyRequests />} />
+            <Route path="/active-actions" element={<MyActions />} />
+            <Route path="/past-actions" element={<MyActions />} />
             <Route path="/logout" element={<div>Çıkış Yapıldı</div>} />
           </Routes>
         </main>
