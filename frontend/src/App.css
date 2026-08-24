@@ -42,9 +42,7 @@ main {
 
 .header h1 {
   font-size: 25px;
-  margin-top: 0;
-  margin-left: 30px;
-  margin-bottom: 5px;
+  margin: 0 20px 5px 30px;
   color: #333;
 }
 
@@ -57,9 +55,7 @@ main {
 
 .header p {
   font-size: 14px;
-  margin-top: 5px;
-  margin-left: 30px;
-  margin-bottom: 15px;
+  margin: 5px 20px 15px 30px;
   color: #666;
 }
 
@@ -70,10 +66,7 @@ main {
 .search-and-filter {
   display: flex;
   align-items: center;
-  margin-left: 30px;
-  margin-right: 30px;
-  margin-bottom: 20px;
-  margin-top: 20px;
+  margin: 20px 30px 20px 30px;
   gap: 20px;
 }
 
@@ -99,8 +92,7 @@ main {
 
 .table-section{
   width: 95%;
-  margin-left: 30px;
-  margin-right: 30px;
+  margin: 20px 30px;
   border-collapse: collapse;
   box-sizing: border-box;
   border: 1px solid #ccc;
@@ -144,17 +136,13 @@ main {
 .sidebar h1 {
   font-size: 18px;
   color: #e2e2e2; ;
-  margin-left: 20px;
-  margin-top: 20px;
-  margin-bottom: 0;
+  margin: 20px 20px 0 20px;
 }
 
 .sidebar-line {
   height: 1px;
   border-bottom: 1px solid #e2e2e2;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-top: 0;
+  margin: 0 20px;
 }
 
 .sidebar ul {
@@ -164,9 +152,7 @@ main {
 }
 
 .sidebar li {
-  margin-bottom: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: 5px 10px 10px;
 }
 
 .sidebar a {
@@ -191,10 +177,7 @@ main {
   border: 1px solid #ccc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 10px;
-  margin-left: 30px;
-  margin-right: 30px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 20px 30px;
   width: 95%;
   display: flex;
   flex-direction: column;
@@ -202,9 +185,7 @@ main {
 
 .request-form label {
   font-weight: bold;
-  margin-bottom: 5px;
-  margin-top: 10px;
-  margin-bottom: 5px;
+  margin: 10px 0 5px 0;
 }
 
 .request-form input,
@@ -217,4 +198,15 @@ main {
   width: 100%;
   box-sizing: border-box;
   margin-bottom: 10px;
+}
+
+.request-form button {
+  background-color: #9E1B32;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
 }
