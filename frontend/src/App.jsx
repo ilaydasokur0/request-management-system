@@ -62,10 +62,8 @@ const [isRequestsOpen, setIsRequestsOpen] = useState(false)
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/create-request" element={<CreateRequest />} />
-            <Route path="/active-requests" element={<MyRequests />} />
-            <Route path="/past-requests" element={<MyRequests />} />
-            <Route path="/active-actions" element={<MyActions />} />
-            <Route path="/past-actions" element={<MyActions />} />
+            <Route path="/my-requests" element={<MyRequests />} />
+            <Route path="/my-actions" element={<MyActions />} />
             <Route path="/logout" element={<div>Çıkış Yapıldı</div>} />
           </Routes>
         </main>
