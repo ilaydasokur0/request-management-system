@@ -4,6 +4,7 @@ import Home from './pages/home'
 import CreateRequest from './pages/CreateRequest'
 import MyActions from './pages/MyActions'
 import { useState } from 'react'
+import MyRequests from './pages/MyRequests'
 
 function App() {
 const [isActionsOpen, setIsActionsOpen] = useState(false)
