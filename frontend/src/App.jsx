@@ -1,6 +1,9 @@
 import './App.css'
+import { Routes, Route } from 'react-router-dom'
+import Home from './pages/home'
+import CreateRequest from './pages/CreateRequest'
 
-function App({ children }) {
+function App() {
   return (
     <div>
       <header className="app-header">
@@ -18,15 +21,20 @@ function App({ children }) {
           <h1>MENÜ</h1>
           <div className="sidebar-line" id="sidebar-line"></div>
           <ul>
-            <li><a href="#">Anasayfa</a></li>
-            <li><a href="#">Talep Oluştur</a></li>
-            <li><a href="#">Taleplerim</a></li>
-            <li><a href="#">İşlemlerim</a></li>
-            <li><a href="#">Çıkış Yap</a></li>
+            <li><a href="/">Anasayfa</a></li>
+            <li><a href="/create-request">Talep Oluştur</a></li>
+            <li><a href="/my-requests">Taleplerim</a></li>
+            <li><a href="/my-actions">İşlemlerim</a></li>
+            <li><a href="/logout">Çıkış Yap</a></li>
           </ul>
         </nav>
 
-        <main>{children}</main>
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/create-request" element={<CreateRequest />} />
+          </Routes>
+        </main>
       </div>
     </div>
   )
