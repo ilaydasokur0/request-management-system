@@ -3,10 +3,11 @@ function Home() {
     <>
       <section className="main-page">
             <div>
-              <h1>Bekleyen Talepler</h1>
-              <div className="header-line" id="header-line"></div>
-              <p>Ekibinize ait bekleyen talepleri görüntüleyin ve yönetin.</p>
-
+              <section className="header">
+                <h1>Bekleyen Talepler</h1>
+                <div className="header-line" id="header-line"></div>
+                <p>Ekibinize ait bekleyen talepleri görüntüleyin ve yönetin.</p>
+              </section>
               <div className="search-and-filter">
                 <input
                   className="search-input"
