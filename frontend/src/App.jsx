@@ -48,8 +48,8 @@ const [isRequestsOpen, setIsRequestsOpen] = useState(false)
               </button>
               {isRequestsOpen && (
                 <ul className="requests-submenu">
-                  <li className = "sub-menu-item"><Link to="/my-requests?view=current">Aktif Taleplerim</Link></li>
-                  <li className = "sub-menu-item"><Link to="/my-requests?view=past">Geçmiş Taleplerim</Link></li>
+                  <Link to="/my-requests?view=current" className="sub-menu-item">Aktif Taleplerim</Link>
+                  <Link to="/my-requests?view=past" className="sub-menu-item">Geçmiş Taleplerim</Link>
                 </ul>
               )}
             </li>

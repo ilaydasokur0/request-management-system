@@ -1,13 +1,16 @@
 import '../App.css';
+import { useSearchParams } from 'react-router-dom';
 
 function MyRequests() {
+    const [searchParams] = useSearchParams(); // URL'deki sorgu parametrelerini alır
+    const view = searchParams.get('view'); // view parametresi var mı varsa değerini alır
     return (
         <section className="my-requests-page">
             <div>
                 <section className="header">
-                    <h1>Taleplerim</h1>
+                    <h1>{view === 'past' ? 'Geçmiş Taleplerim' : 'Aktif Taleplerim'}</h1>
                     <div className="header-line"></div>
-                    <p>Burada oluşturduğunuz talepleri görebilir ve yönetebilirsiniz.</p>
+                    <p>{view === 'past' ? 'Geçmiş taleplerinizi görüntüleyebilirsiniz.' : 'Aktif taleplerinizi görüntüleyebilir ve yönetebilirsiniz.'}</p>
                 </section>
                 <section className="table-section">
                     <table className="requests-table">
