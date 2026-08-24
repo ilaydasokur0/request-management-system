@@ -53,8 +53,7 @@ const [isRequestsOpen, setIsRequestsOpen] = useState(false)
                 </ul>
               )}
             </li>
-
-            <li><Link to="/logout">Çıkış Yap</Link></li>
+            <li><Link to="/logout">Ayarlar</Link></li>
           </ul>
         </nav>
 
@@ -64,7 +63,7 @@ const [isRequestsOpen, setIsRequestsOpen] = useState(false)
             <Route path="/create-request" element={<CreateRequest />} />
             <Route path="/my-requests" element={<MyRequests />} />
             <Route path="/my-actions" element={<MyActions />} />
-            <Route path="/logout" element={<div>Çıkış Yapıldı</div>} />
+            <Route path="/logout" element={<div>Ayarlar</div>} />
           </Routes>
         </main>
       </div>
