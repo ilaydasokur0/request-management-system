@@ -150,6 +150,11 @@ main {
   margin: 5px 10px 10px;
 }
 
+.sidebar .sub-menu-item {
+  margin: 0 0 5px;
+  align-items: center;
+}
+
 .sidebar a {
   text-decoration: none;
   color: #faf8f8;
