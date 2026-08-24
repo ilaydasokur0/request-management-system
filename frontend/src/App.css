@@ -1,6 +1,6 @@
 
 /* Başlık */
-header {
+.app-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11,13 +11,13 @@ header {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-header h1 {
+.app-header h1 {
   font-size: 27px;
   color: #F0F0F0;
   margin: 0;
 }
 
-header span {
+.app-header span {
   font-size: 15px;
   font-weight: bold;
   color: #F0F0F0;
@@ -25,7 +25,7 @@ header span {
 
 /*  */
 
-/* Gövde */
+/* Genel Gövde */
 
 body {
   flex: 1;
@@ -40,7 +40,7 @@ main {
   font-family: Arial, sans-serif;
 }
 
-.main-page h1 {
+.header h1 {
   font-size: 25px;
   margin-top: 0;
   margin-left: 30px;
@@ -55,7 +55,7 @@ main {
     width: 95%;
 }
 
-.main-page p {
+.header p {
   font-size: 14px;
   margin-top: 5px;
   margin-left: 30px;
@@ -65,7 +65,7 @@ main {
 
 /*  */
 
-/* Arama ve Filtre Alanı */
+/* ANASAYFA Arama ve Filtre Alanı */
 
 .search-and-filter {
   display: flex;
@@ -95,7 +95,7 @@ main {
 
 /*  */
 
-/* Tablo */
+/* ANASAYFATablo */
 
 .table-section{
   width: 95%;
@@ -184,3 +184,37 @@ main {
   background-color: #6c5a5c;
 }
 
+/* Talep Oluştur Form */
+
+.request-form {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+}
+
+.request-form label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.request-form input,
+.request-form select,
+.request-form textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}

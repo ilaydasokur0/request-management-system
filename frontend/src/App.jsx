@@ -3,7 +3,7 @@ import './App.css'
 function App({ children }) {
   return (
     <div>
-      <header>
+      <header className="app-header">
         <div>
           <h1>Talep Yönetim Sistemi</h1>
         </div>
