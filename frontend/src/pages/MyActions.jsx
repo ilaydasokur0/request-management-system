@@ -9,13 +9,16 @@ function MyActions() {
                     <div className="header-line"></div>
                     <p>İşleme aldığınız talepleri görüntüleyebilir ve yönetebilirsiniz.</p>
                 </section>
-        <section className="actions-section"> 
-            <table>
+        <section className="table-section"> 
+            <table className="actions-table">
                 <thead>
                     <tr>
-                        <th>İşlem ID</th>
-                        <th>İşlem Türü</th>
-                        <th>İşlem Açıklaması</th>
+                        <th>Talep ID</th>
+                        <th>Talep Başlığı</th>
+                        <th>Talep Açıklaması</th>
+                        <th>Talep Durumu</th>
+                        <th>Öncelik</th>
+                        <th>Oluşturulma Tarihi</th>
                         <th>İşleme Alınma Tarihi</th>
                     </tr>
                 </thead>
