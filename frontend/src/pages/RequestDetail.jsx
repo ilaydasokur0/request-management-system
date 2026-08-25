@@ -1,9 +1,16 @@
 import '../App.css';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { mockRequests } from '../data/mockRequests';
+
+const departmentLabels = {
+    it: 'IT',
+    hr: 'İK',
+    finance: 'Finans',
+};
 
 function RequestDetail() {
     const { id } = useParams();
+    const navigate = useNavigate();
     const request = mockRequests.find((request) => request.id === parseInt(id));
 
     if (!request) {
@@ -13,6 +20,7 @@ function RequestDetail() {
     return (
         <section className="request-detail-page">
             <div>
+                
                 <section className="header">
                     <h1>Talep Detayı</h1>
                     <div className="header-line"></div>
@@ -20,18 +28,31 @@ function RequestDetail() {
                 </section>
                 <section className="request-detail-section">
                     <dl className="request-detail">
+                        <button className="back-button" onClick={() => navigate(-1)}>
+                            ◀ Geri Dön
+                        </button>
                         <dt>Talep Başlığı:</dt>
                         <dd>{request.title}</dd>
                         <dt>Talebi Oluşturan:</dt>
                         <dd>{request.requester}</dd>
                         <dt>Atanan Kişi:</dt>
                         <dd>{request.assignee}</dd>
+                        <dt>Departman:</dt>
+                        <dd>{departmentLabels[request.department] || request.department}</dd>
                         <dt>Talep Açıklaması:</dt>
                         <dd>{request.description}</dd>
                         <dt>Talep Durumu:</dt>
-                        <dd>{request.status}</dd>
+                        <dd>
+                            <span className={`status-badge status-${request.status.toLowerCase()}`}>
+                                {request.status}
+                            </span>
+                        </dd>
                         <dt>Öncelik:</dt>
-                        <dd>{request.priority}</dd>
+                        <dd>
+                            <span className={`priority-badge priority-${request.priority}`}>
+                                {request.priority}
+                            </span>
+                        </dd>
                         <dt>Oluşturulma Tarihi:</dt>
                         <dd>{request.createdAt}</dd>
                         {request.assignedAt && (
