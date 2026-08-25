@@ -47,7 +47,7 @@ function Home() {
               </thead>
 
               <tbody className="talep-listesi" id="talep-listesi">
-                {mockRequests.filter((request) => request.status === "Pending" && request.requester === "Ayşe Kaya").map((request) => (
+                {mockRequests.filter((request) => request.status === "Pending").map((request) => (
                   <tr key={request.id} onClick={() => navigate(`/request/${request.id}`)}>
                     <td>{request.id}</td>
                     <td>{request.title}</td>

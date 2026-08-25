@@ -6,6 +6,10 @@ function RequestDetail() {
     const { id } = useParams();
     const request = mockRequests.find((request) => request.id === parseInt(id));
 
+    if (!request) {
+        return <p>Talep bulunamadı.</p>;
+    }
+
     return (
         <section className="request-detail-page">
             <div>
