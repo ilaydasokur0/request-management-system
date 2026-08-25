@@ -5,6 +5,7 @@ import CreateRequest from './pages/CreateRequest'
 import MyActions from './pages/MyActions'
 import { useState } from 'react'
 import MyRequests from './pages/MyRequests'
+import RequestDetail from './pages/RequestDetail'
 
 function App() {
 const [isActionsOpen, setIsActionsOpen] = useState(false)
@@ -64,6 +65,7 @@ const [isRequestsOpen, setIsRequestsOpen] = useState(false)
             <Route path="/my-requests" element={<MyRequests />} />
             <Route path="/my-actions" element={<MyActions />} />
             <Route path="/logout" element={<div>Ayarlar</div>} />
+            <Route path="/request/:id" element={<RequestDetail />} />
           </Routes>
         </main>
       </div>

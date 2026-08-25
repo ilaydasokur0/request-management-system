@@ -1,6 +1,6 @@
 import '../App.css;'
 
-function Request() {
+function RequestDetail() {
     return (
         <section className="request-page">
             <div>
