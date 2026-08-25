@@ -28,9 +28,17 @@ function RequestDetail() {
                 </section>
                 <section className="request-detail-section">
                     <dl className="request-detail">
-                        <button className="back-button" onClick={() => navigate(-1)}>
-                            ◀ Geri Dön
-                        </button>
+                        
+                        <div className="request-detail-container">
+                            <button className="back-button" onClick={() => navigate(-1)}>
+                                ◀ Geri Dön
+                            </button>
+                            <select>
+                                <option value="Talebi Atayın">Talebi Atayın</option>
+                                <option value="a">a</option>
+                            </select>
+                        </div>
+
                         <dt>Talep Başlığı:</dt>
                         <dd>{request.title}</dd>
                         <dt>Talebi Oluşturan:</dt>
