@@ -21,7 +21,7 @@ function MyRequests() {
                                 <th>Talep Açıklaması</th>
                                 <th>Talep Durumu</th>
                                 <th>Öncelik</th>
-                                <th>Oluşturulma Tarihi</th>
+                                <th>{view === 'past' ? 'İşlem Tamamlanma Tarihi' : 'Oluşturulma Tarihi'}</th>
                             </tr>
                         </thead>
                         <tbody className="requests-list" id="requests-list">
