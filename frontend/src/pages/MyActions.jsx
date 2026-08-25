@@ -35,7 +35,7 @@ const myActions = mockRequests.filter((request) =>
                 </thead>
                 <tbody className="actions-list" id="actions-list">
                     {myActions.map((request) => (
-                        <tr key={request.id} onClick={() => navigate(`/request/${request.id}`)}>
+                        <tr key={request.id} onClick={() => navigate(`/request/${request.id}?from=my-actions`)}>
                             <td>{request.id}</td>
                             <td>{request.title}</td>
                             <td>{request.description}</td>

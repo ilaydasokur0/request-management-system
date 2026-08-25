@@ -35,7 +35,7 @@ function MyRequests() {
                         </thead>
                         <tbody className="requests-list" id="requests-list">
                             {myRequests.map((request) => (
-                                <tr key={request.id} onClick={() => navigate(`/request/${request.id}`)}>
+                                <tr key={request.id} onClick={() => navigate(`/request/${request.id}?from=my-requests`)}>
                                     <td>{request.id}</td>
                                     <td>{request.title}</td>
                                     <td>{request.description}</td>
