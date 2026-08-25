@@ -1,10 +1,12 @@
 import '../App.css'
 import {useSearchParams} from 'react-router-dom'
 import { mockRequests } from '../data/mockRequests'
+import { useNavigate } from 'react-router-dom'
 
 function MyActions() {
 const [searchParams] = useSearchParams(); // URL'deki sorgu parametrelerini alır
 const view = searchParams.get('view'); // view parametresi var mı varsa değerini alır
+const navigate = useNavigate();
 
 // "İşleme aldığım" talepler: aktifte hâlâ işlemde olanlar, geçmişte tamamlananlar.
 const myActions = mockRequests.filter((request) =>
@@ -33,7 +35,7 @@ const myActions = mockRequests.filter((request) =>
                 </thead>
                 <tbody className="actions-list" id="actions-list">
                     {myActions.map((request) => (
-                        <tr key={request.id}>
+                        <tr key={request.id} onClick={() => navigate(`/request/${request.id}`)}>
                             <td>{request.id}</td>
                             <td>{request.title}</td>
                             <td>{request.description}</td>

@@ -1,8 +1,10 @@
 import '../App.css';
 import { useSearchParams } from 'react-router-dom';
 import { mockRequests } from '../data/mockRequests';
+import { useNavigate } from 'react-router-dom';
 
 function MyRequests() {
+    const navigate = useNavigate();
     const [searchParams] = useSearchParams(); // URL'deki sorgu parametrelerini alır
     const view = searchParams.get('view'); // view parametresi var mı varsa değerini alır
 
@@ -33,7 +35,7 @@ function MyRequests() {
                         </thead>
                         <tbody className="requests-list" id="requests-list">
                             {myRequests.map((request) => (
-                                <tr key={request.id}>
+                                <tr key={request.id} onClick={() => navigate(`/request/${request.id}`)}>
                                     <td>{request.id}</td>
                                     <td>{request.title}</td>
                                     <td>{request.description}</td>

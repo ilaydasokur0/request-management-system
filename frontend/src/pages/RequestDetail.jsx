@@ -1,4 +1,4 @@
-import '../App.css;'
+import '../App.css';
 
 function RequestDetail() {
     return (
@@ -13,5 +13,4 @@ function RequestDetail() {
         </section>
     )
 }
-
-export default Request
+export default RequestDetail
