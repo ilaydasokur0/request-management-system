@@ -27,6 +27,7 @@ function MyRequests() {
                             <tr>
                                 <th>Talep ID</th>
                                 <th>Talep Başlığı</th>
+                                <th>Talep Atanan</th>
                                 <th>Talep Açıklaması</th>
                                 <th>Talep Durumu</th>
                                 <th>Öncelik</th>
@@ -38,6 +39,7 @@ function MyRequests() {
                                 <tr key={request.id} onClick={() => navigate(`/request/${request.id}?from=my-requests`)}>
                                     <td>{request.id}</td>
                                     <td>{request.title}</td>
+                                    <td>{request.assignee}</td>
                                     <td>{request.description}</td>
                                     <td>{request.status}</td>
                                     <td>{request.priority}</td>

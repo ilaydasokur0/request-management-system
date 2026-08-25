@@ -27,6 +27,7 @@ const myActions = mockRequests.filter((request) =>
                     <tr>
                         <th>Talep ID</th>
                         <th>Talep Başlığı</th>
+                        <th>Talebi Oluşturan</th>
                         <th>Talep Açıklaması</th>
                         <th>Öncelik</th>
                         <th>Talep Oluşturulma Tarihi</th>
@@ -38,6 +39,7 @@ const myActions = mockRequests.filter((request) =>
                         <tr key={request.id} onClick={() => navigate(`/request/${request.id}?from=my-actions`)}>
                             <td>{request.id}</td>
                             <td>{request.title}</td>
+                            <td>{request.requester}</td>
                             <td>{request.description}</td>
                             <td>{request.priority}</td>
                             <td>{request.createdAt}</td>
