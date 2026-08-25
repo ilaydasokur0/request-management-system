@@ -1,9 +1,16 @@
 import '../App.css';
 import { useSearchParams } from 'react-router-dom';
+import { mockRequests } from '../data/mockRequests';
 
 function MyRequests() {
     const [searchParams] = useSearchParams(); // URL'deki sorgu parametrelerini alır
     const view = searchParams.get('view'); // view parametresi var mı varsa değerini alır
+
+    // Şimdilik "ben" olarak Ilayda Sokur'u sabit kabul ediyoruz; gerçek kullanıcı girişi eklenince değişecek.
+    const myRequests = mockRequests
+        .filter((request) => request.requester === 'Ilayda Sokur')
+        .filter((request) => (view === 'past' ? request.status === 'Completed' : request.status !== 'Completed'));
+
     return (
         <section className="my-requests-page">
             <div>
@@ -25,7 +32,16 @@ function MyRequests() {
                             </tr>
                         </thead>
                         <tbody className="requests-list" id="requests-list">
-                            {/* Talepler daha sonra buraya gelecek */}
+                            {myRequests.map((request) => (
+                                <tr key={request.id}>
+                                    <td>{request.id}</td>
+                                    <td>{request.title}</td>
+                                    <td>{request.description}</td>
+                                    <td>{request.status}</td>
+                                    <td>{request.priority}</td>
+                                    <td>{view === 'past' ? request.completedAt : request.createdAt}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </section>

@@ -1,9 +1,16 @@
 import '../App.css'
 import {useSearchParams} from 'react-router-dom'
+import { mockRequests } from '../data/mockRequests'
 
 function MyActions() {
 const [searchParams] = useSearchParams(); // URL'deki sorgu parametrelerini alır
 const view = searchParams.get('view'); // view parametresi var mı varsa değerini alır
+
+// "İşleme aldığım" talepler: aktifte hâlâ işlemde olanlar, geçmişte tamamlananlar.
+const myActions = mockRequests.filter((request) =>
+    view === 'past' ? request.status === 'Completed' : request.status === 'InProgress'
+);
+
     return (
         <section className="my-actions-page">
             <div>
@@ -25,7 +32,16 @@ const view = searchParams.get('view'); // view parametresi var mı varsa değeri
                     </tr>
                 </thead>
                 <tbody className="actions-list" id="actions-list">
-                    {/* İşlemler daha sonra buraya gelecek */}
+                    {myActions.map((request) => (
+                        <tr key={request.id}>
+                            <td>{request.id}</td>
+                            <td>{request.title}</td>
+                            <td>{request.description}</td>
+                            <td>{request.priority}</td>
+                            <td>{request.createdAt}</td>
+                            <td>{view === 'past' ? request.completedAt : request.assignedAt}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </section>

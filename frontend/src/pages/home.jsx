@@ -1,3 +1,5 @@
+import {mockRequests} from "../data/mockRequests";
+
 function Home() {
   return (
     <>
@@ -43,7 +45,17 @@ function Home() {
               </thead>
 
               <tbody className="talep-listesi" id="talep-listesi">
-                {/* Talepler daha sonra buraya gelecek */}
+                {mockRequests.filter((request) => request.status === "Pending" && request.requester === "Ayşe Kaya").map((request) => (
+                  <tr key={request.id}>
+                    <td>{request.id}</td>
+                    <td>{request.requester}</td>
+                    <td>{request.title}</td>
+                    <td>{request.description}</td>
+                    <td>{request.status}</td>
+                    <td>{request.priority}</td>
+                    <td>{request.createdAt}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
       </section>
