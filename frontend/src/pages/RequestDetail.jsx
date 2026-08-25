@@ -5,8 +5,6 @@ import { mockRequests } from '../data/mockRequests';
 function RequestDetail() {
     const { id } = useParams();
     const request = mockRequests.find((request) => request.id === parseInt(id));
-    const [searchParams] = useSearchParams();
-    const from = searchParams.get('from'); // !!!from parametresi var mı varsa değerini alır
 
     return (
         <section className="request-detail-page">
@@ -20,10 +18,10 @@ function RequestDetail() {
                     <dl className="request-detail">
                         <dt>Talep Başlığı:</dt>
                         <dd>{request.title}</dd>
-                        <dt>Talep Oluşturan:</dt>
+                        <dt>Talebi Oluşturan:</dt>
                         <dd>{request.requester}</dd>
-                        <dt>Talep Atanan:</dt>
-                        <dd>{request.assignedTo || 'Henüz atanmamış'}</dd>
+                        <dt>Atanan Kişi:</dt>
+                        <dd>{request.assignee}</dd>
                         <dt>Talep Açıklaması:</dt>
                         <dd>{request.description}</dd>
                         <dt>Talep Durumu:</dt>
@@ -32,6 +30,18 @@ function RequestDetail() {
                         <dd>{request.priority}</dd>
                         <dt>Oluşturulma Tarihi:</dt>
                         <dd>{request.createdAt}</dd>
+                        {request.assignedAt && (
+                            <>
+                                <dt>İşleme Alınma Tarihi:</dt>
+                                <dd>{request.assignedAt}</dd>
+                            </>
+                        )}
+                        {request.completedAt && (
+                            <>
+                                <dt>İşlem Tamamlanma Tarihi:</dt>
+                                <dd>{request.completedAt}</dd>
+                            </>
+                        )}
                     </dl>
                 </section>
             </div>
