@@ -2,8 +2,8 @@
 /* Başlık */
 :root {
   /* Ana renk */
-  --primary: #3F6B82;
-  --primary-dark: #315568;
+  --primary: #315568;
+  --primary-dark: #1F3A4B;
   --primary-light: #E7EFF3;
 
   /* Header ve Sidebar */
