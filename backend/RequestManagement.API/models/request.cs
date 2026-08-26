@@ -5,10 +5,10 @@ public class Request
     public string Description { get; set; } = "";
     public string Requester { get; set; } = "";
     public string Assignee { get; set; } = "";
-    public string Priority { get; set; } = "";
-    public DateTime CreatedAt { get; set; }
-    public DateTime? AssignedAt { get; set; }
-    public DateTime? CompletedAt { get; set; }
+    public Priority Priority { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public DateTime? AssignedAt { get; set; } = null;
+    public DateTime? CompletedAt { get; set; } = null;
     public string Status { get; set; } = "Pending";
     public string Department { get; set; } = "";
 }
