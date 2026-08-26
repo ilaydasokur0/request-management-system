@@ -2,6 +2,7 @@ import '../App.css';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { statusLabels, priorityLabels } from "../labels";
 
 
 function MyRequests() {
@@ -54,8 +55,8 @@ function MyRequests() {
                                     <td>{request.title}</td>
                                     <td>{request.assignee}</td>
                                     <td>{request.description}</td>
-                                    <td>{request.status}</td>
-                                    <td>{request.priority}</td>
+                                    <td>{statusLabels[request.status]}</td>
+                                    <td>{priorityLabels[request.priority]}</td>
                                     <td>{view === 'past' ? request.completedAt : request.createdAt}</td>
                                 </tr>
                             ))}

@@ -19,9 +19,9 @@ function CreateRequest() {
                         <label htmlFor="priority">Talep Önceliği:</label> 
                         <select name="priority" id="priority" required>
                             <option value="">Öncelik Seçin</option>
-                            <option value="low">Düşük</option>
-                            <option value="medium">Orta</option>
-                            <option value="high">Yüksek</option>
+                            <option value="Low">Düşük</option>
+                            <option value="Medium">Orta</option>
+                            <option value="High">Yüksek</option>
                         </select>
                         <label htmlFor="department">Departman:</label>
                         <select name="department" id="department" required>

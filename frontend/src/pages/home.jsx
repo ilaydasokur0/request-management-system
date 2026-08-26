@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
+import { statusLabels, priorityLabels } from "../labels";
 
 function Home() {
   const navigate = useNavigate();
@@ -62,8 +63,8 @@ function Home() {
                     <td>{request.title}</td>
                     <td>{request.requester}</td>
                     <td>{request.description}</td>
-                    <td>{request.status}</td>
-                    <td>{request.priority}</td>
+                    <td>{statusLabels[request.status]}</td>
+                    <td>{priorityLabels[request.priority]}</td>
                     <td>{request.createdAt}</td>
                   </tr>
                 ))}
