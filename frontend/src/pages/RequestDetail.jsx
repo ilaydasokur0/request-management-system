@@ -1,5 +1,7 @@
 import '../App.css';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { statusLabels, priorityLabels } from "../labels";
 
 const departmentLabels = {
     it: 'IT',
@@ -10,10 +12,17 @@ const departmentLabels = {
 function RequestDetail() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const request = mockRequests.find((request) => request.id === parseInt(id));
+    const [request, setRequest] = useState(null);   
+
+    useEffect(() => {
+        fetch(`http://localhost:5145/api/request/${id}`)
+            .then((response) => response.json())
+            .then((data) => setRequest(data))
+            .catch((error) => console.error("Error fetching request details:", error));
+    }, [id]);
 
     if (!request) {
-        return <p>Talep bulunamadı.</p>;
+        return <div>Loading...</div>;
     }
 
     return (
@@ -50,13 +59,13 @@ function RequestDetail() {
                         <dt>Talep Durumu:</dt>
                         <dd>
                             <span className={`status-badge status-${request.status.toLowerCase()}`}>
-                                {request.status}
+                                {statusLabels[request.status] || request.status}
                             </span>
                         </dd>
                         <dt>Öncelik:</dt>
                         <dd>
-                            <span className={`priority-badge priority-${request.priority}`}>
-                                {request.priority}
+                            <span className={`priority-badge priority-${request.priority.toLowerCase()}`}>
+                                {priorityLabels[request.priority] || request.priority}
                             </span>
                         </dd>
                         <dt>Oluşturulma Tarihi:</dt>
