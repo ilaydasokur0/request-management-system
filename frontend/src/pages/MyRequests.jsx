@@ -1,16 +1,30 @@
 import '../App.css';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+
 
 function MyRequests() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams(); // URL'deki sorgu parametrelerini alır
     const view = searchParams.get('view'); // view parametresi var mı varsa değerini alır
+    const [requests, setRequests] = useState([]);
 
-    // Şimdilik "ben" olarak Ilayda Sokur'u sabit kabul ediyoruz; gerçek kullanıcı girişi eklenince değişecek.
-    const myRequests = mockRequests
-        .filter((request) => request.requester === 'Ilayda Sokur')
-        .filter((request) => (view === 'past' ? request.status === 'Completed' : request.status !== 'Completed'));
+    useEffect(() => {
+        fetch("http://localhost:5145/api/request")
+            .then((response) => response.json())
+            .then((data) => setRequests(data))
+            .catch((error) => console.error("Error fetching requests:", error));
+    }, []);
+
+    const myRequests = requests.filter((request) => {
+        if (view === 'past') {
+            return request.status === 'Completed' && request.requester === 'Ilayda Sokur';
+        } else {
+            return request.status !== 'Completed' && request.requester === 'Ilayda Sokur';
+        }
+    }); // Şimdilik "ben" olarak Ilayda Sokur'u sabit kabul ediyoruz; gerçek kullanıcı girişi eklenince değişecek.
+
 
     return (
         <section className="my-requests-page">
