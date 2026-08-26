@@ -28,7 +28,6 @@ function RequestDetail() {
                 </section>
                 <section className="request-detail-section">
                     <dl className="request-detail">
-                        
                         <div className="request-detail-container">
                             <button className="back-button" onClick={() => navigate(-1)}>
                                 ◀ Geri Dön

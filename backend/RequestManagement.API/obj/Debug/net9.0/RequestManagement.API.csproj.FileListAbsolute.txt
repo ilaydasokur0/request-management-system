@@ -31,3 +31,4 @@ C:\Projeler\RequestManagement\backend\RequestManagement.API\obj\Debug\net9.0\ref
 C:\Projeler\RequestManagement\backend\RequestManagement.API\obj\Debug\net9.0\RequestManagement.API.pdb
 C:\Projeler\RequestManagement\backend\RequestManagement.API\obj\Debug\net9.0\RequestManagement.API.genruntimeconfig.cache
 C:\Projeler\RequestManagement\backend\RequestManagement.API\obj\Debug\net9.0\ref\RequestManagement.API.dll
+C:\Projeler\RequestManagement\backend\RequestManagement.API\obj\Debug\net9.0\RequestManagement.API.sourcelink.json
