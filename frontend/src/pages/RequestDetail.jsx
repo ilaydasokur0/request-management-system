@@ -1,6 +1,5 @@
 import '../App.css';
 import { useParams, useNavigate } from 'react-router-dom';
-import { mockRequests } from '../data/mockRequests';
 
 const departmentLabels = {
     it: 'IT',

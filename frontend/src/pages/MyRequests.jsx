@@ -1,6 +1,5 @@
 import '../App.css';
 import { useSearchParams } from 'react-router-dom';
-import { mockRequests } from '../data/mockRequests';
 import { useNavigate } from 'react-router-dom';
 
 function MyRequests() {
