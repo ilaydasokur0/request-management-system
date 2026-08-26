@@ -9,3 +9,9 @@ export const priorityLabels = {
     'Medium': 'Orta',
     'High': 'Yüksek',
 };
+
+export const departmentLabels = {
+    it: 'IT',
+    hr: 'İK',
+    finance: 'Finans',
+};

@@ -2,12 +2,7 @@ import '../App.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { statusLabels, priorityLabels } from "../labels";
-
-const departmentLabels = {
-    it: 'IT',
-    hr: 'İK',
-    finance: 'Finans',
-};
+import { departmentLabels } from "../labels";
 
 function RequestDetail() {
     const { id } = useParams();
