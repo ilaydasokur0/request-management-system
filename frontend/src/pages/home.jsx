@@ -1,8 +1,18 @@
-import {mockRequests} from "../data/mockRequests";
+import {useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
   const navigate = useNavigate();
+  const [requests, setRequests] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5145/api/request")
+      .then((response) => response.json())
+      .then((data) => setRequests(data))
+      .catch((error) => console.error("Error fetching requests:", error));
+  }, []);
+  
   return (
     <>
       <section className="main-page">
@@ -47,7 +57,7 @@ function Home() {
               </thead>
 
               <tbody className="talep-listesi" id="talep-listesi">
-                {mockRequests.filter((request) => request.status === "Pending").map((request) => (
+                {requests.filter((request) => request.status === "Pending").map((request) => (
                   <tr key={request.id} onClick={() => navigate(`/request/${request.id}`)}>
                     <td>{request.id}</td>
                     <td>{request.title}</td>
