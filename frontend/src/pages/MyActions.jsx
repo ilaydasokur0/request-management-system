@@ -16,6 +16,14 @@ useEffect(() => {
       .catch((error) => console.error("Error fetching requests:", error));
   }, []);
 
+const myActions = requests.filter((request) => {
+    if (view === 'past') {
+        return request.status === 'Completed';
+    } else {
+        return request.status === 'InProgress';
+    }
+});
+
     return (
         <section className="my-actions-page">
             <div>
@@ -38,7 +46,7 @@ useEffect(() => {
                     </tr>
                 </thead>
                 <tbody className="actions-list" id="actions-list">
-                    {requests.map((request) => (
+                    {myActions.map((request) => (
                         <tr key={request.id} onClick={() => navigate(`/request/${request.id}`)}>
                             <td>{request.id}</td>
                             <td>{request.title}</td>
