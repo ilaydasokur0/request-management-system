@@ -1,17 +1,20 @@
 import '../App.css'
 import {useSearchParams} from 'react-router-dom'
-import { mockRequests } from '../data/mockRequests'
+import  {useState, useEffect} from "react";
 import { useNavigate } from 'react-router-dom'
 
 function MyActions() {
 const [searchParams] = useSearchParams(); // URL'deki sorgu parametrelerini alır
 const view = searchParams.get('view'); // view parametresi var mı varsa değerini alır
 const navigate = useNavigate();
+const [requests, setRequests] = useState([]);
 
-// "İşleme aldığım" talepler: aktifte hâlâ işlemde olanlar, geçmişte tamamlananlar.
-const myActions = mockRequests.filter((request) =>
-    view === 'past' ? request.status === 'Completed' : request.status === 'InProgress'
-);
+useEffect(() => {
+    fetch("http://localhost:5145/api/request")
+      .then((response) => response.json())
+      .then((data) => setRequests(data))
+      .catch((error) => console.error("Error fetching requests:", error));
+  }, []);
 
     return (
         <section className="my-actions-page">
@@ -35,7 +38,7 @@ const myActions = mockRequests.filter((request) =>
                     </tr>
                 </thead>
                 <tbody className="actions-list" id="actions-list">
-                    {myActions.map((request) => (
+                    {requests.map((request) => (
                         <tr key={request.id} onClick={() => navigate(`/request/${request.id}`)}>
                             <td>{request.id}</td>
                             <td>{request.title}</td>
