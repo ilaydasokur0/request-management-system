@@ -21,8 +21,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("AllowFrontend");
 app.MapControllers();
 
-app .UseCors("AllowFrontend");
 app.Run();
