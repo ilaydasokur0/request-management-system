@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 [ApiController] //bu sınıfın bir api controller olduğunu belirtiyor
 [Route("api/[controller]")] //bu sınıfın route adresi api/request olacak
-
-
 public class RequestController : ControllerBase //.netin verdiği temel sınıf controllarbaseden kalıtım
 {
     private static List<Request> _requests = new List<Request> //requestleri tutacak liste
@@ -53,6 +51,7 @@ public class RequestController : ControllerBase //.netin verdiği temel sınıf 
         newRequest.Id = _requests.Max(r => r.Id) + 1;
         newRequest.CreatedAt = DateTime.Now;
         newRequest.Status = "Pending";
+        newRequest.Requester = "Ilayda Sokur"; // Örnek olarak sabit bir requester atandı, gerçek uygulamada kullanıcıdan alınabilir.
         _requests.Add(newRequest);
         return CreatedAtAction(nameof(GetRequestById), new { id = newRequest.Id }, newRequest);
     }
