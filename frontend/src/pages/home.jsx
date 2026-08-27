@@ -6,6 +6,7 @@ function Home() {
   const navigate = useNavigate();
   const [requests, setRequests] = useState([]);
   const [selectedPriority, setSelectedPriority] = useState("Tüm Öncelikler");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:5145/api/request")
@@ -27,8 +28,11 @@ function Home() {
               <div className="search-and-filter">
                 <input
                   className="search-input"
+                  id="search-input"
                   type="text"
                   placeholder="Talep Ara..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                 />
 
                 <div className="filter-section" id="filter-section">
@@ -62,7 +66,7 @@ function Home() {
               </thead>
 
               <tbody className="talep-listesi" id="talep-listesi">
-                {requests.filter((request) => request.status === "Pending").filter((request) => selectedPriority === "Tüm Öncelikler" || request.priority === selectedPriority).map((request) => (
+                {requests.filter((request) => request.status === "Pending").filter((request) => selectedPriority === "Tüm Öncelikler" || request.priority === selectedPriority).filter((request) => request.title.toLowerCase().includes(searchTerm.toLowerCase()) || request.requester.toLowerCase().includes(searchTerm.toLowerCase())).map((request) => (
                   <tr key={request.id} onClick={() => navigate(`/request/${request.id}`)}>
                     <td>{request.id}</td>
                     <td>{request.title}</td>
