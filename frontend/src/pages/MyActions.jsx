@@ -2,7 +2,7 @@ import '../App.css'
 import {useSearchParams} from 'react-router-dom'
 import  {useState, useEffect} from "react";
 import { useNavigate } from 'react-router-dom'
-import { priorityLabels } from "../labels";
+import { priorityLabels, formatDate } from "../labels";
 
 function MyActions() {
 const [searchParams] = useSearchParams(); // URL'deki sorgu parametrelerini alır
@@ -54,8 +54,8 @@ const myActions = requests.filter((request) => {
                             <td>{request.requester}</td>
                             <td>{request.description}</td>
                             <td>{priorityLabels[request.priority]}</td>
-                            <td>{request.createdAt}</td>
-                            <td>{view === 'past' ? request.completedAt : request.assignedAt}</td>
+                            <td>{formatDate(request.createdAt)}</td>
+                            <td>{view === 'past' ? formatDate(request.completedAt) : formatDate(request.assignedAt)}</td>
                         </tr>
                     ))}
                 </tbody>

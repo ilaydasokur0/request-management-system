@@ -2,7 +2,7 @@ import '../App.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { statusLabels, priorityLabels } from "../labels";
-import { departmentLabels } from "../labels";
+import { departmentLabels, formatDate } from "../labels";
 
 function RequestDetail() {
     const { id } = useParams();
@@ -64,17 +64,17 @@ function RequestDetail() {
                             </span>
                         </dd>
                         <dt>Oluşturulma Tarihi:</dt>
-                        <dd>{request.createdAt}</dd>
+                        <dd>{formatDate(request.createdAt)}</dd>
                         {request.assignedAt && (
                             <>
                                 <dt>İşleme Alınma Tarihi:</dt>
-                                <dd>{request.assignedAt}</dd>
+                                <dd>{formatDate(request.assignedAt)}</dd>
                             </>
                         )}
                         {request.completedAt && (
                             <>
                                 <dt>İşlem Tamamlanma Tarihi:</dt>
-                                <dd>{request.completedAt}</dd>
+                                <dd>{formatDate(request.completedAt)}</dd>
                             </>
                         )}
                     </dl>
