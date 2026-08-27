@@ -5,6 +5,7 @@ import { statusLabels, priorityLabels } from "../labels";
 function Home() {
   const navigate = useNavigate();
   const [requests, setRequests] = useState([]);
+  const [selectedPriority, setSelectedPriority] = useState("Tüm Öncelikler");
 
   useEffect(() => {
     fetch("http://localhost:5145/api/request")
@@ -31,11 +32,15 @@ function Home() {
                 />
 
                 <div className="filter-section" id="filter-section">
-                  <select className="priority-filter" id="priority-filter">
-                    <option>Tüm Öncelikler</option>
-                    <option>Düşük</option>
-                    <option>Orta</option>
-                    <option>Yüksek</option>
+                  <select className="priority-filter" 
+                  id="priority-filter"
+                  value={selectedPriority}
+                  onChange={(e) => setSelectedPriority(e.target.value)}
+                  >
+                    <option value="Tüm Öncelikler">Tüm Öncelikler</option>
+                    <option value="Low">Düşük</option>
+                    <option value="Medium">Orta</option>
+                    <option value="High">Yüksek</option>
                   </select>
                 </div>
               </div>
@@ -57,7 +62,7 @@ function Home() {
               </thead>
 
               <tbody className="talep-listesi" id="talep-listesi">
-                {requests.filter((request) => request.status === "Pending").map((request) => (
+                {requests.filter((request) => request.status === "Pending").filter((request) => selectedPriority === "Tüm Öncelikler" || request.priority === selectedPriority).map((request) => (
                   <tr key={request.id} onClick={() => navigate(`/request/${request.id}`)}>
                     <td>{request.id}</td>
                     <td>{request.title}</td>
