@@ -42,4 +42,18 @@ public class RequestController : ControllerBase //.netin verdiği temel sınıf 
 
         return Ok(requests);
     }
+
+    [HttpPost]
+    public IActionResult CreateRequest([FromBody] Request newRequest)
+    {
+        if (newRequest == null)
+        {
+            return BadRequest("Request data is null.");
+        }
+        newRequest.Id = _requests.Max(r => r.Id) + 1;
+        newRequest.CreatedAt = DateTime.Now;
+        newRequest.Status = "Pending";
+        _requests.Add(newRequest);
+        return CreatedAtAction(nameof(GetRequestById), new { id = newRequest.Id }, newRequest);
+    }
 }
