@@ -9,6 +9,8 @@ const [searchParams] = useSearchParams(); // URL'deki sorgu parametrelerini alı
 const view = searchParams.get('view'); // view parametresi var mı varsa değerini alır
 const navigate = useNavigate();
 const [requests, setRequests] = useState([]);
+const [selectedPriority, setSelectedPriority] = useState("Tüm Öncelikler");
+const [searchTerm, setSearchTerm] = useState("");
 
 useEffect(() => {
     fetch("http://localhost:5145/api/request")
@@ -33,35 +35,54 @@ const myActions = requests.filter((request) => {
                     <div className="header-line"></div>
                     <p>{view === 'past' ? 'Geçmiş işlemleriniz burada görüntüleyebilirsiniz' : 'Aktif işlemlerinizi burada görüntüleyebilir ve yönetebilirsiniz.'}</p>
                 </section>
-        <section className="table-section"> 
-            <table className="actions-table">
-                <thead>
-                    <tr>
-                        <th>Talep ID</th>
-                        <th>Talep Başlığı</th>
-                        <th>Talebi Oluşturan</th>
-                        <th>Talep Açıklaması</th>
-                        <th>Öncelik</th>
-                        <th>Talep Oluşturulma Tarihi</th>
-                        <th>{view === 'past' ? 'İşlem Tamamlanma Tarihi' : 'İşleme Alınma Tarihi'}</th>
-                    </tr>
-                </thead>
-                <tbody className="actions-list" id="actions-list">
-                    {myActions.map((request) => (
-                        <tr key={request.id} onClick={() => navigate(`/request/${request.id}`)}>
-                            <td>{request.id}</td>
-                            <td>{request.title}</td>
-                            <td>{request.requester}</td>
-                            <td>{request.description}</td>
-                            <td>{priorityLabels[request.priority]}</td>
-                            <td>{formatDate(request.createdAt)}</td>
-                            <td>{view === 'past' ? formatDate(request.completedAt) : formatDate(request.assignedAt)}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </section>
+
+                <div className="search-and-filter">
+                    <input
+                        className="search-input"
+                        id="search-input"
+                        type="text"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        placeholder="Talep Ara..."
+                    />
+                    <div className="filter-section" id="filter-section">
+                        <select className="priority-filter" id="priority-filter" value={selectedPriority} onChange={(e) => setSelectedPriority(e.target.value)}>
+                            <option value="Tüm Öncelikler">Tüm Öncelikler</option>
+                            <option value="Low">Düşük</option>
+                            <option value="Medium">Orta</option>
+                            <option value="High">Yüksek</option>
+                        </select>
+                    </div>
+                </div>
             </div>
+            <section className="table-section"> 
+                <table className="actions-table">
+                    <thead>
+                        <tr>
+                            <th>Talep ID</th>
+                            <th>Talep Başlığı</th>
+                            <th>Talebi Oluşturan</th>
+                            <th>Talep Açıklaması</th>
+                            <th>Öncelik</th>
+                            <th>Talep Oluşturulma Tarihi</th>
+                            <th>{view === 'past' ? 'İşlem Tamamlanma Tarihi' : 'İşleme Alınma Tarihi'}</th>
+                        </tr>
+                    </thead>
+                    <tbody className="actions-list" id="actions-list">
+                        {myActions.filter((request) => selectedPriority === "Tüm Öncelikler" || request.priority === selectedPriority).filter((request) => request.title.toLowerCase().includes(searchTerm.toLowerCase()) || request.requester.toLowerCase().includes(searchTerm.toLowerCase())).map((request) => (
+                            <tr key={request.id} onClick={() => navigate(`/request/${request.id}`)}>
+                                <td>{request.id}</td>
+                                <td>{request.title}</td>
+                                <td>{request.requester}</td>
+                                <td>{request.description}</td>
+                                <td>{priorityLabels[request.priority]}</td>
+                                <td>{formatDate(request.createdAt)}</td>
+                                <td>{view === 'past' ? formatDate(request.completedAt) : formatDate(request.assignedAt)}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </section>
         </section>
     )
 }
