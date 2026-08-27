@@ -5,9 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 public class RequestController : ControllerBase //.netin verdiği temel sınıf controllarbaseden kalıtım
 {
-    private List<Request> GetMockRequests()
-{   
-    return new List<Request>
+    private static List<Request> _requests = new List<Request> //requestleri tutacak liste
         {
             new Request { Id = 1, Title = "Yazıcı arızası", Description = "3. kat yazıcı kağıt sıkıştırıyor, acil bakım gerekiyor.", Requester = "Ayşe Kaya", Assignee = "Mehmet Demir", Priority = Priority.High, CreatedAt = new DateTime(2026, 8, 14), AssignedAt = new DateTime(2026, 8, 15), Status = "InProgress", Department = "IT" },
             new Request { Id = 2, Title = "Yeni ekipman talebi", Description = "Ek monitör ve klavye talebi.", Requester = "Ilayda Sokur", Assignee = "Mehmet Demir", Priority = Priority.Low, CreatedAt = new DateTime(2026, 8, 15), AssignedAt = new DateTime(2026, 8, 16), Status = "InProgress", Department = "IT" },
@@ -22,12 +20,11 @@ public class RequestController : ControllerBase //.netin verdiği temel sınıf 
             new Request { Id = 11, Title = "Yeni yazıcı kurulumu", Description = "2. kat ofis için yeni yazıcı kurulumu talebi.", Requester = "Ayşe Kaya", Assignee = "Mehmet Demir", Priority = Priority.Medium, CreatedAt = new DateTime(2026, 8, 25), Status = "Pending", Department = "IT" },   
             new Request { Id = 12, Title = "İzin iptali talebi", Description = "Planlanan yıllık izin iptali talebi.", Requester = "Can Öztürk", Assignee = "Zeynep Aydın", Priority = Priority.Low, CreatedAt = new DateTime(2026, 8, 12), AssignedAt = new DateTime(2026, 8, 13), Status = "InProgress", Department = "HR" }  
         };
-}
 
     [HttpGet("{id}")] //bu metodun http get isteği ile çağrılacağını belirtiyor ve id parametresi alıyor
     public IActionResult GetRequestById(int id) //id ile request getiren metod
     {
-        var requests = GetMockRequests(); //mock requestleri al
+        var requests = _requests; //mock requestleri al
         var request = requests.FirstOrDefault(r => r.Id == id); //id ile eşleşen requesti bul
 
         if (request == null) //eğer request bulunamazsa
@@ -41,7 +38,7 @@ public class RequestController : ControllerBase //.netin verdiği temel sınıf 
     [HttpGet] //bu metodun http get isteği ile çağrılacağını belirtiyor
     public IActionResult GetAllRequests() //tüm requestleri getiren metod
     {
-        var requests = GetMockRequests(); //mock requestleri al
+        var requests = _requests; //mock requestleri al
 
         return Ok(requests);
     }
