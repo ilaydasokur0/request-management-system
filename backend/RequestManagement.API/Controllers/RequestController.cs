@@ -31,16 +31,33 @@ public class RequestController : ControllerBase //.netin verdiği temel sınıf 
     }
 
     [HttpPost]
-    public IActionResult CreateRequest([FromBody] Request newRequest)
+    public IActionResult CreateRequest([FromBody] CreateRequestDTO dto) //yeni request oluşturan metod
     {
-        if (newRequest == null)
+        if (dto == null)
+                {
+                    return BadRequest("Request data is null.");
+                }
+
+        var department = _context.Departments.FirstOrDefault(d => d.Id == dto.DepartmentId); //dto ile gelen department id ile departmanı bul
+        if (department == null) //eğer departman bulunamazsa
         {
-            return BadRequest("Request data is null.");
+            return BadRequest("Invalid DepartmentId."); //400 döndür
         }
-        newRequest.CreatedAt = DateTime.Now;
-        newRequest.Status = "Pending";
-        newRequest.Requester = "Ilayda Sokur"; // Örnek olarak sabit bir requester atandı, gerçek uygulamada kullanıcıdan alınabilir.
-        _context.Requests.Add(newRequest);
+
+        var newRequest = new Request
+        {
+            Title = dto.Title,
+            Description = dto.Description,
+            Priority = dto.Priority,
+            DepartmentId = dto.DepartmentId,
+            Department = department,
+            Requester = dto.Requester,
+            Status = "Pending",
+            CreatedAt = DateTime.Now,
+            AssignedAt = null,
+            CompletedAt = null
+        };
+       _context.Requests.Add(newRequest); //yeni requesti ekle
         _context.SaveChanges();
         return CreatedAtAction(nameof(GetRequestById), new { id = newRequest.Id }, newRequest);
     }

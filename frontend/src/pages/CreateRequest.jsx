@@ -1,11 +1,20 @@
 import '../App.css'
-import {useState} from "react";
+import {useState, useEffect} from "react";
 function CreateRequest() {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [priority, setPriority] = useState("");
-    const [department, setDepartment] = useState("");
+    const [department, setDepartment] = useState(""); // seçilen departmanı tutuyoruz
+    const [departments, setDepartments] = useState([]); // bütün departmanları tutuyoruz
+
+    useEffect(() => {
+        fetch("http://localhost:5145/api/department") // backendden departmanları çekiyoruz
+            .then((response) => response.json())
+            .then((data) => setDepartments(data))
+            .catch((error) => console.error("Error fetching departments:", error));
+    }
+, []); 
 
     return (
         <section className="create-request-page">
@@ -24,28 +33,30 @@ function CreateRequest() {
                             title: title,
                             description: description,
                             priority: priority,
-                            department: department,
+                            departmentId: department, // seçilen departmanın id'sini gönderiyoruz
                         };
-                        fetch("http://localhost:5145/api/request", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify(newRequest),
-                        })
-                        .then((response) => {
-                            if (response.ok) {
-                                alert("Talep başarıyla oluşturuldu!");
-                            } else {
-                                alert("Talep oluşturulamadı. Lütfen tekrar deneyin.");
-                            }
-                        })
-                        .catch((error) => {
-                            console.error("Error creating request:", error);
-                            alert("Talep oluşturulamadı. Lütfen tekrar deneyin.");
-                        });
-                    }}
-                    >
+                    fetch("http://localhost:5145/api/request", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(newRequest),
+                    })
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error("Network response was not ok");
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        console.log("Request created successfully:", data)
+                        alert("Talep başarıyla oluşturuldu!");
+                    })
+                    .catch((error) => {
+                        console.error("Error creating request:", error);
+                        alert("Talep oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.");
+                    });
+                    }}>
                         <label htmlFor="title">Talep Başlığı:</label>
                         <input type="text"
                         id="title"
@@ -80,9 +91,11 @@ function CreateRequest() {
                         onChange={(e) => setDepartment(e.target.value)}
                         >
                             <option value="">Departman Seçin</option>
-                            <option value="it">IT</option>
-                            <option value="hr">İK</option>
-                            <option value="finance">Finans</option>
+                            {departments.map((department) => (
+                                <option key={department.id} value={department.id}>
+                                    {department.name}
+                                </option>
+                            ))} 
                         </select>
                         <button type="submit">Talep Oluştur</button>
                     </form>
