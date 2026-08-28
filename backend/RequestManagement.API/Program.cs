@@ -58,6 +58,25 @@ using (var scope = app.Services.CreateScope())
         );
         context.SaveChanges();
     }
+
+    if (!context.Departments.Any())
+    {
+        var it = new Department { Name = "IT" };
+        var hr = new Department { Name = "HR" };
+        var finance = new Department { Name = "Finance" };
+
+        context.Departments.AddRange(it, hr, finance);
+
+        context.Employees.AddRange(
+            new Employee { Name = "Mehmet Demir", Email = "mehmet.demir@example.com", Department = it },
+            new Employee { Name = "Ayşe Kaya", Email = "ayse.kaya@example.com", Department = it },
+            new Employee { Name = "Zeynep Aydın", Email = "zeynep.aydin@example.com", Department = hr },
+            new Employee { Name = "Ilayda Sokur", Email = "ilayda.sokur@example.com", Department = hr },
+            new Employee { Name = "Can Öztürk", Email = "can.ozturk@example.com", Department = finance }
+        );
+
+        context.SaveChanges();
+    }
 }
 
 
