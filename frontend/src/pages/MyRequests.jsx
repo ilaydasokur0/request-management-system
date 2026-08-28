@@ -69,7 +69,7 @@ function MyRequests() {
                             </tr>
                         </thead>
                         <tbody className="requests-list" id="requests-list">
-                            {myRequests.filter(request => selectedPriority === "Tüm Öncelikler" || request.priority === selectedPriority).filter(request => request.title.toLowerCase().includes(searchTerm.toLowerCase()) || request.assignee.toLowerCase().includes(searchTerm.toLowerCase())).map((request) => (
+                            {myRequests.filter((request) => request.requester === CurrentUser).filter((request) => selectedPriority === "Tüm Öncelikler" || request.priority === selectedPriority).filter((request) => request.title.toLowerCase().includes(searchTerm.toLowerCase()) || request.assignee.toLowerCase().includes(searchTerm.toLowerCase())).map((request) => (
                                 <tr key={request.id} onClick={() => navigate(`/request/${request.id}`)}>
                                     <td>{request.id}</td>
                                     <td>{request.title}</td>

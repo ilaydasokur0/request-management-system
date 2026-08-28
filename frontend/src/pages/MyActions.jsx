@@ -2,7 +2,7 @@ import '../App.css'
 import {useSearchParams} from 'react-router-dom'
 import  {useState, useEffect} from "react";
 import { useNavigate } from 'react-router-dom'
-import { priorityLabels, formatDate } from "../labels";
+import { priorityLabels, formatDate, CurrentUser } from "../labels";
 
 function MyActions() {
 const [searchParams] = useSearchParams(); // URL'deki sorgu parametrelerini alır
@@ -69,7 +69,7 @@ const myActions = requests.filter((request) => {
                         </tr>
                     </thead>
                     <tbody className="actions-list" id="actions-list">
-                        {myActions.filter((request) => selectedPriority === "Tüm Öncelikler" || request.priority === selectedPriority).filter((request) => request.title.toLowerCase().includes(searchTerm.toLowerCase()) || request.requester.toLowerCase().includes(searchTerm.toLowerCase())).map((request) => (
+                        {myActions.filter((request) => request.assignee === CurrentUser).filter((request) => selectedPriority === "Tüm Öncelikler" || request.priority === selectedPriority).filter((request) => request.title.toLowerCase().includes(searchTerm.toLowerCase()) || request.requester.toLowerCase().includes(searchTerm.toLowerCase())).map((request) => (
                             <tr key={request.id} onClick={() => navigate(`/request/${request.id}`)}>
                                 <td>{request.id}</td>
                                 <td>{request.title}</td>
