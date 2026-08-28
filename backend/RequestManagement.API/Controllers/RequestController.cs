@@ -19,11 +19,16 @@ public class RequestController : ControllerBase //.netin verdiği temel sınıf 
             new Request { Id = 12, Title = "İzin iptali talebi", Description = "Planlanan yıllık izin iptali talebi.", Requester = "Can Öztürk", Assignee = "Zeynep Aydın", Priority = Priority.Low, CreatedAt = new DateTime(2026, 8, 12), AssignedAt = new DateTime(2026, 8, 13), Status = "InProgress", Department = "HR" }  
         };
 
+        private readonly AppDbContext _context;
+        public RequestController(AppDbContext context)
+        {
+            _context = context;
+        }
+
     [HttpGet("{id}")] //bu metodun http get isteği ile çağrılacağını belirtiyor ve id parametresi alıyor
     public IActionResult GetRequestById(int id) //id ile request getiren metod
     {
-        var requests = _requests; //mock requestleri al
-        var request = requests.FirstOrDefault(r => r.Id == id); //id ile eşleşen requesti bul
+        var request = _context.Requests.FirstOrDefault(r => r.Id == id); //id ile eşleşen requesti bul
 
         if (request == null) //eğer request bulunamazsa
         {
@@ -36,7 +41,7 @@ public class RequestController : ControllerBase //.netin verdiği temel sınıf 
     [HttpGet] //bu metodun http get isteği ile çağrılacağını belirtiyor
     public IActionResult GetAllRequests() //tüm requestleri getiren metod
     {
-        var requests = _requests; //mock requestleri al
+        var requests = _context.Requests.ToList(); //tüm requestleri al
 
         return Ok(requests);
     }
@@ -48,11 +53,11 @@ public class RequestController : ControllerBase //.netin verdiği temel sınıf 
         {
             return BadRequest("Request data is null.");
         }
-        newRequest.Id = _requests.Max(r => r.Id) + 1;
         newRequest.CreatedAt = DateTime.Now;
         newRequest.Status = "Pending";
         newRequest.Requester = "Ilayda Sokur"; // Örnek olarak sabit bir requester atandı, gerçek uygulamada kullanıcıdan alınabilir.
-        _requests.Add(newRequest);
+        _context.Requests.Add(newRequest);
+        _context.SaveChanges();
         return CreatedAtAction(nameof(GetRequestById), new { id = newRequest.Id }, newRequest);
     }
 }

@@ -7,4 +7,7 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<Request> Requests { get; set; }
+    public DbSet<Employee> Employees { get; set; }
+
+    public DbSet<Department> Departments { get; set; }
 }
