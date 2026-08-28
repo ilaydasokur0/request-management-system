@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
@@ -16,6 +18,8 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
+
+builder.Services.AddDbContext<AppDbContext>(options =>options.UseSqlite("Data Source=requests.db"));
 
 var app = builder.Build();
 
