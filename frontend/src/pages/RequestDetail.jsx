@@ -35,10 +35,12 @@ function RequestDetail() {
                             <button className="back-button" onClick={() => navigate(-1)}>
                                 ◀ Geri Dön
                             </button>
-                            <select>
-                                <option value="Talebi Atayın">Talebi Atayın</option>
-                                <option value="a">a</option>
-                            </select>
+                            {request.status == "Pending" && request.requester !== "Ilayda Sokur" && (
+                                <select>
+                                    <option value="Talebi Atayın">Talebi Atayın</option>
+                                    <option value="a">a</option>
+                                </select>
+                            )}
                         </div>
 
                         <dt>Talep Başlığı:</dt>
