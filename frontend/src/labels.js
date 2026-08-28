@@ -23,3 +23,5 @@ export const formatDate = (dateString) => {
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
 }
+
+export const CurrentUser = "İlayda Sokur"

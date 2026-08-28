@@ -2,7 +2,7 @@ import '../App.css';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { statusLabels, priorityLabels, formatDate } from "../labels";
+import { statusLabels, priorityLabels, formatDate, CurrentUser } from "../labels";
 
 
 function MyRequests() {
@@ -21,12 +21,11 @@ function MyRequests() {
 
     const myRequests = requests.filter((request) => {
         if (view === 'past') {
-            return request.status === 'Completed' && request.requester === 'Ilayda Sokur';
+            return request.status === 'Completed' && request.requester === CurrentUser;
         } else {
-            return request.status !== 'Completed' && request.requester === 'Ilayda Sokur';
+            return request.status !== 'Completed' && request.requester === CurrentUser;
         }
-    }); // Şimdilik "ben" olarak Ilayda Sokur'u sabit kabul ediyoruz; gerçek kullanıcı girişi eklenince değişecek.
-
+    }); 
 
     return (
         <section className="my-requests-page">

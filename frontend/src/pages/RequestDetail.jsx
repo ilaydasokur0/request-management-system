@@ -2,7 +2,7 @@ import '../App.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { statusLabels, priorityLabels } from "../labels";
-import { departmentLabels, formatDate } from "../labels";
+import { departmentLabels, formatDate, CurrentUser } from "../labels";
 
 function RequestDetail() {
     const { id } = useParams();
@@ -35,7 +35,7 @@ function RequestDetail() {
                             <button className="back-button" onClick={() => navigate(-1)}>
                                 ◀ Geri Dön
                             </button>
-                            {request.status == "Pending" && request.requester !== "Ilayda Sokur" && (
+                            {request.status == "Pending" && request.requester !==   CurrentUser && (
                                 <select>
                                     <option value="Talebi Atayın">Talebi Atayın</option>
                                     <option value="a">a</option>

@@ -66,7 +66,7 @@ function Home() {
               </thead>
 
               <tbody className="talep-listesi" id="talep-listesi">
-                {requests.filter((request) => request.status === "Pending").filter((request) => selectedPriority === "Tüm Öncelikler" || request.priority === selectedPriority).filter((request) => request.title.toLowerCase().includes(searchTerm.toLowerCase()) || request.requester.toLowerCase().includes(searchTerm.toLowerCase())).map((request) => (
+                {requests.filter((request) => request.requester !== CurrentUser).filter((request) => request.status === "Pending").filter((request) => selectedPriority === "Tüm Öncelikler" || request.priority === selectedPriority).filter((request) => request.title.toLowerCase().includes(searchTerm.toLowerCase()) || request.requester.toLowerCase().includes(searchTerm.toLowerCase())).map((request) => (
                   <tr key={request.id} onClick={() => navigate(`/request/${request.id}`)}>
                     <td>{request.id}</td>
                     <td>{request.title}</td>
