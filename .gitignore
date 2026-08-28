@@ -1,0 +1,22 @@
+# .NET build output
+**/bin/
+**/obj/
+
+# SQLite database (runtime data, not source)
+*.db
+*.db-shm
+*.db-wal
+
+# Frontend
+**/node_modules/
+**/dist/
+
+# Editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+
+# Environment
+.env
+.env.*

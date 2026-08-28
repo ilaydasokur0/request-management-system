@@ -10,5 +10,7 @@ public class Request
     public DateTime? AssignedAt { get; set; } = null;
     public DateTime? CompletedAt { get; set; } = null;
     public string Status { get; set; } = "Pending";
-    public string Department { get; set; } = "";
+
+    public int DepartmentId { get; set; } // departman tablosuna id ile bağlantı kurmak için foreign key
+    public Department Department { get; set; } = null!; // navigation property, request ile department arasında ilişki kurmak için
 }
