@@ -47,7 +47,21 @@ function RequestDetail() {
                                 ◀ Geri Dön
                             </button>
                             {request.status == "Pending" && request.requester !==   CurrentUser && (
-                                <select>
+                                <select
+                                    onChange={(e) => {
+                                        const selectedId = e.target.value;
+                                        const selectedEmployee = departmentEmployees.find((employee) => employee.id === parseInt(selectedId));
+
+                                        fetch(`http://localhost:5145/api/request/${id}`, {
+                                            method: "PATCH",
+                                            headers: {
+                                                "Content-Type": "application/json"
+                                            },
+                                            body: JSON.stringify({
+                                                assignee: selectedEmployee?.name
+                                            })
+                                        });
+                                    }}>
                                     <option value="Talebi Atayın">Talebi Atayın</option>
                                     {departmentEmployees.filter((employee) => employee.name !== request.requester).map((employee) => (
                                         <option key={employee.id} value={employee.id}>
