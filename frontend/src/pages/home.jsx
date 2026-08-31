@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import { statusLabels, priorityLabels, formatDate, CurrentUser } from "../labels";
+import { statusLabels, priorityLabels, formatDate, CurrentUser, CurrentUserDepartment } from "../labels";
 
 function Home() {
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ function Home() {
               </thead>
 
               <tbody className="talep-listesi" id="talep-listesi">
-                {requests.filter((request) => request.status === "Pending").filter((request) => request.requester !== CurrentUser).filter((request) => selectedPriority === "Tüm Öncelikler" || request.priority === selectedPriority).filter((request) => request.title.toLowerCase().includes(searchTerm.toLowerCase()) || request.requester.toLowerCase().includes(searchTerm.toLowerCase())).map((request) => (
+                {requests.filter((request) => request.department.name === CurrentUserDepartment).filter((request) => request.status === "Pending").filter((request) => request.requester !== CurrentUser).filter((request) => selectedPriority === "Tüm Öncelikler" || request.priority === selectedPriority).filter((request) => request.title.toLowerCase().includes(searchTerm.toLowerCase()) || request.requester.toLowerCase().includes(searchTerm.toLowerCase())).map((request) => (
                   <tr key={request.id} onClick={() => navigate(`/request/${request.id}`)}>
                     <td>{request.id}</td>
                     <td>{request.title}</td>

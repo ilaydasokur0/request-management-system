@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 [ApiController] //bu sınıfın bir api controller olduğunu belirtiyor
 [Route("api/[controller]")] //bu sınıfın route adresi api/request olacak
 public class RequestController : ControllerBase //.netin verdiği temel sınıf controllarbaseden kalıtım
@@ -12,7 +13,7 @@ public class RequestController : ControllerBase //.netin verdiği temel sınıf 
     [HttpGet("{id}")] //bu metodun http get isteği ile çağrılacağını belirtiyor ve id parametresi alıyor
     public IActionResult GetRequestById(int id) //id ile request getiren metod
     {
-        var request = _context.Requests.FirstOrDefault(r => r.Id == id); //id ile eşleşen requesti bul
+        var request = _context.Requests.Include(r => r.Department).FirstOrDefault(r => r.Id == id); //id ile eşleşen requesti bul
 
         if (request == null) //eğer request bulunamazsa
         {
@@ -25,7 +26,7 @@ public class RequestController : ControllerBase //.netin verdiği temel sınıf 
     [HttpGet] //bu metodun http get isteği ile çağrılacağını belirtiyor
     public IActionResult GetAllRequests() //tüm requestleri getiren metod
     {
-        var requests = _context.Requests.ToList(); //tüm requestleri al
+        var requests = _context.Requests.Include(r => r.Department).ToList(); //tüm requestleri al
 
         return Ok(requests);
     }
