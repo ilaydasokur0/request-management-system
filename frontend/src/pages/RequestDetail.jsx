@@ -63,7 +63,7 @@ function RequestDetail() {
                                         })
                                             .then(() => fetch(`http://localhost:5145/api/request/${id}`))
                                             .then((response) => response.json())
-                                            .then((data) => setRequest(data));
+                                            .then((data) => setRequest(data)); // talep detayları anlık olarak güncelleniyor
                                     }}
                                 >
                                     <option value="Talebi Atayın">Talebi Atayın</option>

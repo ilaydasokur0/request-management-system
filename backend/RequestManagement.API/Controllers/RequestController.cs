@@ -64,7 +64,7 @@ public class RequestController : ControllerBase //.netin verdiği temel sınıf 
     }
 
 
-    [HttpPatch("{id}")]
+    [HttpPatch("{id}/assign")]
     public IActionResult UpdateRequest(int id, [FromBody] UpdateRequestDTO dto) //id ile request güncelleyen metod
     {
         var request = _context.Requests.FirstOrDefault(r => r.Id == id); //id ile eşleşen requesti bul
@@ -86,5 +86,28 @@ public class RequestController : ControllerBase //.netin verdiği temel sınıf 
         _context.SaveChanges(); //değişiklikleri kaydet
 
         return NoContent(); //204 döndür
+
+    }
+
+    [HttpPatch("{id}/complete")]
+    public IActionResult CompleteRequest(int id, [FromBody] CompleteRequestDTO dto)
+    {
+        var request = _context.Requests.FirstOrDefault(r => r.Id == id); //id ile eşleşen requesti bul
+
+        if (request == null) //eğer request bulunamazsa
+        {
+            return NotFound(); //404 döndür
+        }
+
+    if (dto == null)
+                {
+                    return BadRequest("Request data is null.");
+                }
+        request.Status = dto.Status;
+        request.CompletedAt = dto.CompletedAt;
+
+        _context.SaveChanges(); //değişiklikleri kaydet
+        return NoContent(); //204 döndür
+
 
     }}
