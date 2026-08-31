@@ -13,7 +13,7 @@ public class RequestController : ControllerBase //.netin verdiği temel sınıf 
     [HttpGet("{id}")] //bu metodun http get isteği ile çağrılacağını belirtiyor ve id parametresi alıyor
     public IActionResult GetRequestById(int id) //id ile request getiren metod
     {
-        var request = _context.Requests.FirstOrDefault(r => r.Id == id); //id ile eşleşen requesti bul
+        var request = _context.Requests.Include(r => r.Department).FirstOrDefault(r => r.Id == id); //id ile eşleşen requesti bul
 
         if (request == null) //eğer request bulunamazsa
         {

@@ -8,12 +8,22 @@ function RequestDetail() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [request, setRequest] = useState(null);   
-
+    const [DepartmentEmployee, setDepartmentEmployee] = useState(null);
     useEffect(() => {
         fetch(`http://localhost:5145/api/request/${id}`)
             .then((response) => response.json())
             .then((data) => setRequest(data))
             .catch((error) => console.error("Error fetching request details:", error));
+    }, [id]);
+
+    useEffect(() => {
+        fetch(`http://localhost:5145/api/request/${id}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setDepartmentEmployee(data);
+                setDepartmentEmployee(data.department?.employee || null);
+            })
+            .catch((error) => console.error("Error fetching employee details:", error));
     }, [id]);
 
     if (!request) {
@@ -38,7 +48,7 @@ function RequestDetail() {
                             {request.status == "Pending" && request.requester !==   CurrentUser && (
                                 <select>
                                     <option value="Talebi Atayın">Talebi Atayın</option>
-                                    <option value="a">a</option>
+                                    <option value={DepartmentEmployee?.id}>{DepartmentEmployee?.name}</option>
                                 </select>
                             )}
                         </div>
@@ -50,7 +60,7 @@ function RequestDetail() {
                         <dt>Atanan Kişi:</dt>
                         <dd>{request.assignee}</dd>
                         <dt>Departman:</dt>
-                        <dd>{departmentLabels[request.department] || request.department}</dd>
+                        <dd>{departmentLabels[request.department.name.toLowerCase()] || request.department.name}</dd>
                         <dt>Talep Açıklaması:</dt>
                         <dd>{request.description}</dd>
                         <dt>Talep Durumu:</dt>
