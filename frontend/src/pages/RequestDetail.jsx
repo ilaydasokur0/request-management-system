@@ -8,7 +8,7 @@ function RequestDetail() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [request, setRequest] = useState(null);   
-    const [DepartmentEmployee, setDepartmentEmployee] = useState(null);
+    const [departmentEmployees, setDepartmentEmployees] = useState([]);
     useEffect(() => {
         fetch(`http://localhost:5145/api/request/${id}`)
             .then((response) => response.json())
@@ -16,15 +16,16 @@ function RequestDetail() {
             .catch((error) => console.error("Error fetching request details:", error));
     }, [id]);
 
+    const departmentId = request?.department?.id;
+
     useEffect(() => {
-        fetch(`http://localhost:5145/api/request/${id}`)
+        if (!departmentId) return;
+        fetch(`http://localhost:5145/api/employee/${departmentId}`)
             .then((response) => response.json())
-            .then((data) => {
-                setDepartmentEmployee(data);
-                setDepartmentEmployee(data.department?.employee || null);
-            })
-            .catch((error) => console.error("Error fetching employee details:", error));
-    }, [id]);
+            .then((data) => setDepartmentEmployees(data))
+            .catch((error) => console.error("Error fetching department employee:", error));
+    }
+, [request?.department?.id]);
 
     if (!request) {
         return <div>Loading...</div>;
@@ -48,7 +49,11 @@ function RequestDetail() {
                             {request.status == "Pending" && request.requester !==   CurrentUser && (
                                 <select>
                                     <option value="Talebi Atayın">Talebi Atayın</option>
-                                    <option value={DepartmentEmployee?.id}>{DepartmentEmployee?.name}</option>
+                                    {departmentEmployees.filter((employee) => employee.name !== request.requester).map((employee) => (
+                                        <option key={employee.id} value={employee.id}>
+                                            {employee.name}
+                                        </option>
+                                    ))}
                                 </select>
                             )}
                         </div>
