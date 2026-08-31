@@ -16,4 +16,16 @@ public class EmployeeController : ControllerBase //.netin verdiği temel sınıf
 
             return Ok(employees);
         }
-}
+
+        [HttpGet("{departmentId}")] //bu metodun http get isteği ile çağrılacağını belirtiyor ve departmentId parametresi alıyor
+        public IActionResult GetEmployeesByDepartment(int departmentId) //departmentId ile employee'leri getiren metod
+        {
+            var employees = _context.Employees.Where(e => e.DepartmentId == departmentId).ToList(); //departmentId ile eşleşen employee'leri bul
+
+            if (employees == null || !employees.Any()) //eğer employee bulunamazsa
+            {
+                return NotFound(); //404 döndür
+            }
+
+            return Ok(employees); //bulunan employee'leri döndür
+        }}
