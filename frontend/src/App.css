@@ -304,7 +304,7 @@ main {
   background-color: var(--success);
 }
 
-.back-button, .request-detail-container select {
+.back-button, .request-detail-container select, .complete-button {
   background-color: var(--primary);
   color: var(--surface);
   border: none;
@@ -323,13 +323,13 @@ main {
   margin: 0 0 10px;
 }
 
-.request-detail-container .back-button, .request-detail-container select {
+.request-detail-container .back-button, .request-detail-container select, .complete-button {
   margin: 0;
   padding: 8px 16px;
   font-size: 14px;
 }
 
-.back-button:hover, .request-detail-container select:hover {
+.back-button:hover, .request-detail-container select:hover, .complete-button:hover {
   background-color: var(--primary-dark);
 }
 

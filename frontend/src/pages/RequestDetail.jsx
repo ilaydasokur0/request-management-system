@@ -52,7 +52,7 @@ function RequestDetail() {
                                         const selectedId = e.target.value;
                                         const selectedEmployee = departmentEmployees.find((employee) => employee.id === parseInt(selectedId));
 
-                                        fetch(`http://localhost:5145/api/request/${id}`, {
+                                        fetch(`http://localhost:5145/api/request/${id}/assign`, {
                                             method: "PATCH",
                                             headers: {
                                                 "Content-Type": "application/json"
@@ -73,6 +73,25 @@ function RequestDetail() {
                                         </option>
                                     ))}
                                 </select>
+                            )}
+                            {request.status == "InProgress" && request.assignee ===   CurrentUser && (
+                                <button value="Talebi Tamamla" className="complete-button"
+                                    onClick={(e)=> {
+                                        fetch(`http://localhost:5145/api/request/${id}/complete`, {
+                                            method: "PATCH",
+                                            headers: {
+                                                "Content-Type": "application/json"
+                                            },
+                                            body: JSON.stringify({
+                                            })
+                                        })
+                                            .then(() => fetch(`http://localhost:5145/api/request/${id}`))
+                                            .then((response) => response.json())
+                                            .then((data) => setRequest(data)); // talep detayları anlık olarak güncelleniyor
+                                    }}
+                                >
+                                    Talebi Tamamla
+                                </button>
                             )}
                         </div>
 

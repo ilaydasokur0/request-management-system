@@ -103,11 +103,12 @@ public class RequestController : ControllerBase //.netin verdiği temel sınıf 
                 {
                     return BadRequest("Request data is null.");
                 }
-        request.Status = dto.Status;
-        request.CompletedAt = dto.CompletedAt;
 
-        _context.SaveChanges(); //değişiklikleri kaydet
-        return NoContent(); //204 döndür
+    request.Status = dto.Status;
+    request.CompletedAt = dto.CompletedAt;
+
+    _context.SaveChanges(); //değişiklikleri kaydet
+    return NoContent(); //204 döndür
 
 
     }}
