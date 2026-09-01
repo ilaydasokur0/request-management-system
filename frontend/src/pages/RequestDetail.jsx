@@ -201,8 +201,15 @@ function RequestDetail() {
                                                 requestId: Number(id),
                                                 message: newComment
                                             })
-                                });
-}}
+                                        })
+                                            .then(() => fetch(`http://localhost:5145/api/comment/${id}`))
+                                            .then((response) => response.json())
+                                            .then((data) => {
+                                                setComments(data);
+                                                alert("Yorum başarıyla gönderildi!");
+                                            })
+                                            .catch((error) => console.error("Error posting comment:", error));
+                                    }}
                                     >Yorumu Gönder</button>
                                 </div> )}
                             </div>
