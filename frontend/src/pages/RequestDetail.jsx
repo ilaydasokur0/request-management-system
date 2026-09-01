@@ -1,6 +1,6 @@
 import '../App.css';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { statusLabels, priorityLabels } from "../labels";
 import { departmentLabels, formatDate, CurrentUser } from "../labels";
 
@@ -11,6 +11,7 @@ function RequestDetail() {
     const [departmentEmployees, setDepartmentEmployees] = useState([]);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
+    const commentsListRef = useRef(null);
 
     useEffect(() => {
         fetch(`http://localhost:5145/api/request/${id}`)
@@ -36,6 +37,12 @@ function RequestDetail() {
                 .then((data) => setComments(data))
                 .catch((error) => console.error("Error fetching comments:", error));
         }, [id]);
+
+    useEffect(() => {
+        if (commentsListRef.current) {
+            commentsListRef.current.scrollTop = commentsListRef.current.scrollHeight;
+        }
+    }, [comments]);
 
     if (!request) {
         return <div>Loading...</div>;
@@ -161,7 +168,7 @@ function RequestDetail() {
                         {request.status !== "Pending" && (request.assignee === CurrentUser || request.requester === CurrentUser) && (
                         <section className="comments-section">
                             <h2>Yorumlar</h2>
-                            <div className="request-detail-comments">
+                            <div className="request-detail-comments" ref={commentsListRef}>
                                 {comments.length === 0 ? (
                                     <p className="no-comments">Henüz yorum yok.</p>
                                 ) : (
