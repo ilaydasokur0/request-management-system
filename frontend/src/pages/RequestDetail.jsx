@@ -41,7 +41,7 @@ function RequestDetail() {
                     <p>Talep detaylarını burada görüntüleyebilirsiniz.</p>
                 </section>
                 <section className="request-detail-section">
-                    <dl className="request-detail">
+                    <div className="request-detail">
                         <div className="request-detail-container">
                             <button className="back-button" onClick={() => navigate(-1)}>
                                 ◀ Geri Dön
@@ -95,43 +95,60 @@ function RequestDetail() {
                             )}
                         </div>
 
-                        <dt>Talep Başlığı:</dt>
-                        <dd>{request.title}</dd>
-                        <dt>Talebi Oluşturan:</dt>
-                        <dd>{request.requester}</dd>
-                        <dt>Atanan Kişi:</dt>
-                        <dd>{request.assignee}</dd>
-                        <dt>Departman:</dt>
-                        <dd>{departmentLabels[request.department.name.toLowerCase()] || request.department.name}</dd>
-                        <dt>Talep Açıklaması:</dt>
-                        <dd>{request.description}</dd>
-                        <dt>Talep Durumu:</dt>
-                        <dd>
-                            <span className={`status-badge status-${request.status.toLowerCase()}`}>
-                                {statusLabels[request.status] || request.status}
-                            </span>
-                        </dd>
-                        <dt>Öncelik:</dt>
-                        <dd>
-                            <span className={`priority-badge priority-${request.priority.toLowerCase()}`}>
-                                {priorityLabels[request.priority] || request.priority}
-                            </span>
-                        </dd>
-                        <dt>Oluşturulma Tarihi:</dt>
-                        <dd>{formatDate(request.createdAt)}</dd>
-                        {request.assignedAt && (
-                            <>
-                                <dt>İşleme Alınma Tarihi:</dt>
-                                <dd>{formatDate(request.assignedAt)}</dd>
-                            </>
-                        )}
-                        {request.completedAt && (
-                            <>
-                                <dt>İşlem Tamamlanma Tarihi:</dt>
-                                <dd>{formatDate(request.completedAt)}</dd>
-                            </>
-                        )}
-                    </dl>
+                        <section className="request-detail-info">
+                            <div className="request-detail-info-item">
+                                <h1>{request.title}</h1>
+                                <p><strong>Talep Açıklaması:</strong> {request.description}</p>
+                            </div>
+                        </section>
+
+                        <div className="request-detail-meta">
+                            <div className="request-detail-meta-item">
+                                <span className="meta-label">Talebi Oluşturan</span>
+                                <span className="meta-value">{request.requester}</span>
+                            </div>
+                            <div className="request-detail-meta-item">
+                                <span className="meta-label">Atanan Kişi</span>
+                                <span className="meta-value">{request.assignee || "—"}</span>
+                            </div>
+                            <div className="request-detail-meta-item">
+                                <span className="meta-label">Departman</span>
+                                <span className="meta-value">{departmentLabels[request.department.name.toLowerCase()] || request.department.name}</span>
+                            </div>
+                            <div className="request-detail-meta-item">
+                                <span className="meta-label">Talep Durumu</span>
+                                <span className="meta-value">
+                                    <span className={`status-badge status-${request.status.toLowerCase()}`}>
+                                        {statusLabels[request.status] || request.status}
+                                    </span>
+                                </span>
+                            </div>
+                            <div className="request-detail-meta-item">
+                                <span className="meta-label">Öncelik</span>
+                                <span className="meta-value">
+                                    <span className={`priority-badge priority-${request.priority.toLowerCase()}`}>
+                                        {priorityLabels[request.priority] || request.priority}
+                                    </span>
+                                </span>
+                            </div>
+                            <div className="request-detail-meta-item">
+                                <span className="meta-label">Oluşturulma Tarihi</span>
+                                <span className="meta-value">{formatDate(request.createdAt)}</span>
+                            </div>
+                            {request.assignedAt && (
+                                <div className="request-detail-meta-item">
+                                    <span className="meta-label">İşleme Alınma Tarihi</span>
+                                    <span className="meta-value">{formatDate(request.assignedAt)}</span>
+                                </div>
+                            )}
+                            {request.completedAt && (
+                                <div className="request-detail-meta-item">
+                                    <span className="meta-label">İşlem Tamamlanma Tarihi</span>
+                                    <span className="meta-value">{formatDate(request.completedAt)}</span>
+                                </div>
+                            )}
+                        </div>
+                    </div>
                 </section>
             </div>
         </section>
