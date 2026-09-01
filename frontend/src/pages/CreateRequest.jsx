@@ -35,6 +35,10 @@ function CreateRequest() {
                             priority: priority,
                             departmentId: department, // seçilen departmanın id'sini gönderiyoruz
                         };
+                    setTitle("");
+                    setDescription("");
+                    setPriority("");
+                    setDepartment("");
                     fetch("http://localhost:5145/api/request", {
                         method: "POST",
                         headers: {
