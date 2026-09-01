@@ -25,7 +25,12 @@ function MyRequests() {
         } else {
             return request.status !== 'Completed' && request.requester === CurrentUser;
         }
-    }); 
+    });
+
+    const filteredRequests = myRequests
+        .filter((request) => request.requester === CurrentUser)
+        .filter((request) => selectedPriority === "Tüm Öncelikler" || request.priority === selectedPriority)
+        .filter((request) => request.title.toLowerCase().includes(searchTerm.toLowerCase()) || request.assignee.toLowerCase().includes(searchTerm.toLowerCase()));
 
     return (
         <section className="my-requests-page">
@@ -37,14 +42,17 @@ function MyRequests() {
                 </section>
             
                 <div className="search-and-filter">
-                    <input
-                        className="search-input"
-                        id="search-input"
-                        type="text"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        placeholder="Talep Ara..."
-                    />
+                    <div className="search-box">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        <input
+                            className="search-input"
+                            id="search-input"
+                            type="text"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            placeholder="Talep Ara..."
+                        />
+                    </div>
                     <div className="filter-section" id="filter-section">
                         <select className="priority-filter" id="priority-filter" value={selectedPriority} onChange={(e) => setSelectedPriority(e.target.value)}>
                             <option value="Tüm Öncelikler">Tüm Öncelikler</option>
@@ -69,7 +77,7 @@ function MyRequests() {
                             </tr>
                         </thead>
                         <tbody className="requests-list" id="requests-list">
-                            {myRequests.filter((request) => request.requester === CurrentUser).filter((request) => selectedPriority === "Tüm Öncelikler" || request.priority === selectedPriority).filter((request) => request.title.toLowerCase().includes(searchTerm.toLowerCase()) || request.assignee.toLowerCase().includes(searchTerm.toLowerCase())).map((request) => (
+                            {filteredRequests.map((request) => (
                                 <tr key={request.id} onClick={() => navigate(`/request/${request.id}`)}>
                                     <td>{request.id}</td>
                                     <td>{request.title}</td>
@@ -90,6 +98,12 @@ function MyRequests() {
                             ))}
                         </tbody>
                     </table>
+                    {filteredRequests.length === 0 && (
+                        <div className="empty-state">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <p>Sonuç bulunamadı.</p>
+                        </div>
+                    )}
                 </section>
             </div>
         </section>

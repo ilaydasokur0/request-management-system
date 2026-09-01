@@ -102,6 +102,21 @@ main {
   gap: 20px;
 }
 
+.search-box {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+}
+
+.search-box svg {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  pointer-events: none;
+}
+
 .search-input {
   width: 100%;
   max-width: 600px;
@@ -109,6 +124,19 @@ main {
   border: 1px solid var(--border);
   border-radius: 4px;
   height: 32px;
+  padding-left: 34px;
+  box-sizing: border-box;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-secondary);
+}
+
+.empty-state svg {
+  color: var(--border);
+  margin-bottom: 8px;
 }
 
 .priority-filter {
