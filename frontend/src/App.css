@@ -17,9 +17,9 @@
   --surface-hover: #F0F4F6;
 
   /* Yazılar */
-  --text: #263238;
-  --text-secondary: #62727C;
-  --text-light: #F5F7F8;
+  --text: #1F2A37;
+  --text-secondary: #5C6772;
+  --text-light: #F7F8FA;
 
   /* Çizgiler */
   --border: #D6DEE3;
@@ -44,14 +44,14 @@
 
 .app-header h1 {
   font-size: 27px;
-  color: var(--primary);
+  color: var(--primary-dark);
   margin: 0;
 }
 
 .app-header span {
   font-size: 15px;
   font-weight: bold;
-  color: var(--text);
+  color: var(--primary-dark);
 }
 
 /*  */
@@ -63,6 +63,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: var(--background);
+  color: var(--text);
 }
 
 main {
@@ -127,8 +128,9 @@ main {
   border-collapse: collapse;
   box-sizing: border-box;
   border: 1px solid var(--border);
-  border-radius: 6px;
-  box-shadow: 0 2px 4px color-mix(in srgb, var(--text) 10%, transparent);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--text) 6%, transparent);
+  overflow: hidden;
 }
 
 .table-section table {
@@ -137,10 +139,33 @@ main {
   background-color: var(--surface);
 }
 
-.table-section th, .table-section td {
-  padding: 10px;
+.table-section th {
+  padding: 12px 16px;
   text-align: left;
-  border: 1px solid var(--border);
+  font-weight: bold;
+  color: var(--primary-dark);
+  background-color: var(--primary-light);
+  border-bottom: 1px solid var(--border);
+}
+
+.table-section td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text);
+}
+
+.table-section tbody tr {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.table-section tbody tr:hover {
+  background-color: var(--surface-hover);
+}
+
+.table-section tbody tr:last-child td {
+  border-bottom: none;
 }
 
 /*  */
