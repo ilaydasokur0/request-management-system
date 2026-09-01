@@ -9,6 +9,8 @@ function RequestDetail() {
     const navigate = useNavigate();
     const [request, setRequest] = useState(null);   
     const [departmentEmployees, setDepartmentEmployees] = useState([]);
+    const [comments, setComments] = useState([]);
+
     useEffect(() => {
         fetch(`http://localhost:5145/api/request/${id}`)
             .then((response) => response.json())
@@ -27,10 +29,17 @@ function RequestDetail() {
     }
 , [request?.department?.id]);
 
+    useEffect(() => {
+            fetch(`http://localhost:5145/api/comment/${id}`)
+                .then((response) => response.json())
+                .then((data) => setComments(data))
+                .catch((error) => console.error("Error fetching comments:", error));
+        }, [id]);
+
     if (!request) {
         return <div>Loading...</div>;
     }
-
+ 
     return (
         <section className="request-detail-page">
             <div>
@@ -148,6 +157,24 @@ function RequestDetail() {
                                 </div>
                             )}
                         </div>
+                        <section className="comments-section">
+                            <h2>Yorumlar</h2>
+                            <div className="request-detail-comments">
+                                {comments.length === 0 ? (
+                                    <p className="no-comments">Henüz yorum yok.</p>
+                                ) : (
+                                    comments.map((comment) => (
+                                        <div key={comment.id} className="comment">
+                                            <div className="comment-header">
+                                                <span className="comment-author">{comment.author}</span>
+                                                <span className="comment-date">{formatDate(comment.createdAt)}</span>
+                                            </div>
+                                            <div className="comment-message">{comment.message}</div>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+                        </section>
                     </div>
                 </section>
             </div>

@@ -19,6 +19,17 @@ public class CommentController : ControllerBase //.netin verdiği temel sınıf 
         [HttpPost] //bu metodun http post isteği ile çağrılacağını belirtiyor
         public IActionResult CreateComment([FromBody] CreateCommentDTO dto)
     {
+        if (dto== null)
+        {
+            return BadRequest("Comment data is null.");
+        }
+        var request = _context.Requests.FirstOrDefault(r => r.Id == dto.RequestId);
+        if (request == null)
+        {
+            return BadRequest("Invalid RequestId.");
+        }
+
+        var comment = new Comment
         {
             RequestId = dto.RequestId,
             Author = dto.Author,
