@@ -1,5 +1,5 @@
 import './App.css'
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import Home from './pages/home'
 import CreateRequest from './pages/CreateRequest'
 import MyActions from './pages/MyActions'
@@ -10,6 +10,7 @@ import RequestDetail from './pages/RequestDetail'
 function App() {
 const [isActionsOpen, setIsActionsOpen] = useState(false)
 const [isRequestsOpen, setIsRequestsOpen] = useState(false)
+const location = useLocation()
 
   return (
     <div>
@@ -28,8 +29,8 @@ const [isRequestsOpen, setIsRequestsOpen] = useState(false)
           <h1>MENÜ</h1>
           <div className="sidebar-line" id="sidebar-line"></div>
           <ul>
-            <li><Link to="/">Anasayfa</Link></li>
-            <li><Link to="/create-request">Talep Oluştur</Link></li>
+            <li><Link to="/" className={location.pathname === "/" ? "active" : ""}>Anasayfa</Link></li>
+            <li><Link to="/create-request" className={location.pathname === "/create-request" ? "active" : ""}>Talep Oluştur</Link></li>
 
             <li>
              <button onClick={() => setIsActionsOpen(!isActionsOpen)}>
@@ -37,8 +38,8 @@ const [isRequestsOpen, setIsRequestsOpen] = useState(false)
             </button>
               {isActionsOpen && (
                 <ul className="actions-submenu">
-                  <Link to="/my-actions?view=current" className="sub-menu-item">Aktif İşlemler</Link>
-                  <Link to="/my-actions?view=past" className="sub-menu-item">Geçmiş İşlemler</Link>
+                  <Link to="/my-actions?view=current" className={location.pathname === "/my-actions" && location.search === "?view=current" ? "sub-menu-item active" : "sub-menu-item"}>Aktif İşlemler</Link>
+                  <Link to="/my-actions?view=past" className={location.pathname === "/my-actions" && location.search === "?view=past" ? "sub-menu-item active" : "sub-menu-item"}>Geçmiş İşlemler</Link>
                 </ul>
               )}
             </li>
@@ -49,12 +50,12 @@ const [isRequestsOpen, setIsRequestsOpen] = useState(false)
               </button>
               {isRequestsOpen && (
                 <ul className="requests-submenu">
-                  <Link to="/my-requests?view=current" className="sub-menu-item">Aktif Taleplerim</Link>
-                  <Link to="/my-requests?view=past" className="sub-menu-item">Geçmiş Taleplerim</Link>
+                  <Link to="/my-requests?view=current" className={location.pathname === "/my-requests" && location.search === "?view=current" ? "sub-menu-item active" : "sub-menu-item"}>Aktif Taleplerim</Link>
+                  <Link to="/my-requests?view=past" className={location.pathname === "/my-requests" && location.search === "?view=past" ? "sub-menu-item active" : "sub-menu-item"}>Geçmiş Taleplerim</Link>
                 </ul>
               )}
             </li>
-            <li><Link to="/logout">Ayarlar</Link></li>
+            <li><Link to="/logout" className={location.pathname === "/logout" ? "active" : ""}>Ayarlar</Link></li>
           </ul>
         </nav>
 
