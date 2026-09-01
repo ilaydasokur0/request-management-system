@@ -223,11 +223,17 @@ main {
   text-decoration: none;
   color: var(--primary);
   font-size: 15px;
-  display: block;
-  padding: 5px;
-  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  transition: background-color 0.2s ease, color 0.2s ease;
   border: none;
   border-radius: 6px;
+}
+
+.sidebar a svg, .sidebar button svg {
+  flex-shrink: 0;
 }
 
 .sidebar a:hover, .sidebar button:hover {

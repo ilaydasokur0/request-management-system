@@ -75,8 +75,16 @@ function MyRequests() {
                                     <td>{request.title}</td>
                                     <td>{request.assignee}</td>
                                     <td>{request.description}</td>
-                                    <td>{statusLabels[request.status]}</td>
-                                    <td>{priorityLabels[request.priority]}</td>
+                                    <td>
+                                      <span className={`status-badge status-${request.status.toLowerCase()}`}>
+                                        {statusLabels[request.status]}
+                                      </span>
+                                    </td>
+                                    <td>
+                                      <span className={`priority-badge priority-${request.priority.toLowerCase()}`}>
+                                        {priorityLabels[request.priority]}
+                                      </span>
+                                    </td>
                                     <td>{view === 'past' ? formatDate(request.completedAt) : formatDate(request.createdAt)}</td>
                                 </tr>
                             ))}

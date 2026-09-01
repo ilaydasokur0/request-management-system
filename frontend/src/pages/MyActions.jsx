@@ -75,7 +75,11 @@ const myActions = requests.filter((request) => {
                                 <td>{request.title}</td>
                                 <td>{request.requester}</td>
                                 <td>{request.description}</td>
-                                <td>{priorityLabels[request.priority]}</td>
+                                <td>
+                                  <span className={`priority-badge priority-${request.priority.toLowerCase()}`}>
+                                    {priorityLabels[request.priority]}
+                                  </span>
+                                </td>
                                 <td>{formatDate(request.createdAt)}</td>
                                 <td>{view === 'past' ? formatDate(request.completedAt) : formatDate(request.assignedAt)}</td>
                             </tr>
