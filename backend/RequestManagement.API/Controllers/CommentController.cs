@@ -28,8 +28,10 @@ public class CommentController : ControllerBase //.netin verdiği temel sınıf 
         {
             return BadRequest("Invalid RequestId.");
         }
+
         var comment = new Comment
         {
+            RequestId = dto.RequestId,
             Author = dto.Author,
             Message = dto.Message,
             CreatedAt = dto.CreatedAt
