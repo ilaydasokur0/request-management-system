@@ -140,10 +140,30 @@ main {
 }
 
 .priority-filter {
-  font-size: 16px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text);
+  background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: 4px;
-  height: 35px;
+  height: 32px;
+  padding: 0 32px 0 12px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2362727C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  transition: border-color 0.2s ease;
+}
+
+.priority-filter:hover {
+  border-color: var(--primary);
+}
+
+.priority-filter:focus {
+  outline: none;
+  border-color: var(--primary);
 }
 
 /*  */
