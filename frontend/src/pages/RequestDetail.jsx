@@ -10,6 +10,7 @@ function RequestDetail() {
     const [request, setRequest] = useState(null);   
     const [departmentEmployees, setDepartmentEmployees] = useState([]);
     const [comments, setComments] = useState([]);
+    const [newComment, setNewComment] = useState("");
 
     useEffect(() => {
         fetch(`http://localhost:5145/api/request/${id}`)
@@ -157,6 +158,7 @@ function RequestDetail() {
                                 </div>
                             )}
                         </div>
+                        {request.status !== "Pending" && (request.assignee === CurrentUser || request.requester === CurrentUser) && (
                         <section className="comments-section">
                             <h2>Yorumlar</h2>
                             <div className="request-detail-comments">
@@ -173,8 +175,38 @@ function RequestDetail() {
                                         </div>
                                     ))
                                 )}
+                                {request.status === "InProgress" && (
+                                <div className="comment-form">
+                                    <textarea
+                                        className="comment-input"
+                                        placeholder="Yorumunuzu buraya yazın..."
+                                        value={newComment}
+                                        onChange={(e) => setNewComment(e.target.value)}
+                                    ></textarea>
+                                    <button className="comment-submit"
+                                    onClick={(e)=> {
+                                        e.preventDefault();
+                                        if (newComment.trim() === "") {
+                                            alert("Yorum boş olamaz.");
+                                            return;
+                                        }
+                                        setNewComment(""); // yorum gönderildikten sonra textarea temizleniyor
+                                        fetch(`http://localhost:5145/api/comment`, {
+                                            method: "POST",
+                                            headers: {
+                                                "Content-Type": "application/json"
+                                            },
+                                            body: JSON.stringify({
+                                                author: CurrentUser,
+                                                requestId: Number(id),
+                                                message: newComment
+                                            })
+                                });
+}}
+                                    >Yorumu Gönder</button>
+                                </div> )}
                             </div>
-                        </section>
+                        </section> )}
                     </div>
                 </section>
             </div>
