@@ -51,12 +51,6 @@ function RequestDetail() {
     return (
         <section className="request-detail-page">
             <div>
-                
-                <section className="header">
-                    <h1>Talep Detayı</h1>
-                    <div className="header-line"></div>
-                    <p>Talep detaylarını burada görüntüleyebilirsiniz.</p>
-                </section>
                 <section className="request-detail-section">
                     <div className="request-detail">
                         <div className="request-detail-container">
@@ -217,7 +211,10 @@ function RequestDetail() {
                                             })
                                             .catch((error) => console.error("Error posting comment:", error));
                                     }}
-                                    >Yorumu Gönder</button>
+                                    >
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                                        Yorumu Gönder
+                                    </button>
                                 </div> )}
                             </div>
                         </section> )}
