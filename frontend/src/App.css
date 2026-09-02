@@ -441,7 +441,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  height: 130px;
+  height: 160px;
   overflow-y: auto;
 }
 
@@ -483,6 +483,7 @@ main {
 .comment-form {
   display: flex;
   gap: 10px;
+  margin-top: 10px;
 }
 
 .comment-form textarea {
@@ -527,7 +528,7 @@ main {
 }
 
 .status-badge.status-inprogress {
-  background-color: var(--danger);
+  background-color: var(--primary);
 }
 
 .status-badge.status-completed {

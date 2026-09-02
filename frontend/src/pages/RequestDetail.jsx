@@ -176,47 +176,47 @@ function RequestDetail() {
                                         </div>
                                     ))
                                 )}
-                                {request.status === "InProgress" && (
-                                <div className="comment-form">
-                                    <textarea
-                                        className="comment-input"
-                                        placeholder="Yorumunuzu buraya yazın..."
-                                        value={newComment}
-                                        onChange={(e) => setNewComment(e.target.value)}
-                                    ></textarea>
-                                    <button className="comment-submit"
-                                    onClick={(e)=> {
-                                        e.preventDefault();
-                                        if (newComment.trim() === "") {
-                                            alert("Yorum boş olamaz.");
-                                            return;
-                                        }
-                                        setNewComment(""); // yorum gönderildikten sonra textarea temizleniyor
-                                        fetch(`http://localhost:5145/api/comment`, {
-                                            method: "POST",
-                                            headers: {
-                                                "Content-Type": "application/json"
-                                            },
-                                            body: JSON.stringify({
-                                                author: CurrentUser,
-                                                requestId: Number(id),
-                                                message: newComment
-                                            })
-                                        })
-                                            .then(() => fetch(`http://localhost:5145/api/comment/${id}`))
-                                            .then((response) => response.json())
-                                            .then((data) => {
-                                                setComments(data);
-                                                alert("Yorum başarıyla gönderildi!");
-                                            })
-                                            .catch((error) => console.error("Error posting comment:", error));
-                                    }}
-                                    >
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                                        Yorumu Gönder
-                                    </button>
-                                </div> )}
                             </div>
+                            {request.status === "InProgress" && (
+                            <div className="comment-form">
+                                <textarea
+                                    className="comment-input"
+                                    placeholder="Yorumunuzu buraya yazın..."
+                                    value={newComment}
+                                    onChange={(e) => setNewComment(e.target.value)}
+                                ></textarea>
+                                <button className="comment-submit"
+                                onClick={(e)=> {
+                                    e.preventDefault();
+                                    if (newComment.trim() === "") {
+                                        alert("Yorum boş olamaz.");
+                                        return;
+                                    }
+                                    setNewComment(""); // yorum gönderildikten sonra textarea temizleniyor
+                                    fetch(`http://localhost:5145/api/comment`, {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json"
+                                        },
+                                        body: JSON.stringify({
+                                            author: CurrentUser,
+                                            requestId: Number(id),
+                                            message: newComment
+                                        })
+                                    })
+                                        .then(() => fetch(`http://localhost:5145/api/comment/${id}`))
+                                        .then((response) => response.json())
+                                        .then((data) => {
+                                            setComments(data);
+                                            alert("Yorum başarıyla gönderildi!");
+                                        })
+                                        .catch((error) => console.error("Error posting comment:", error));
+                                }}
+                                >
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                                    Yorumu Gönder
+                                </button>
+                            </div> )}
                         </section> )}
                     </div>
                 </section>
