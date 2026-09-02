@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -62,14 +63,15 @@ using (var scope = app.Services.CreateScope())
         hr = new Department { Name = "HR" };
         finance = new Department { Name = "Finance" };
 
+        var hasher = new PasswordHasher<Employee>();
         context.Departments.AddRange(it, hr, finance);
 
         context.Employees.AddRange(
-            new Employee { Name = "Mehmet Demir", Email = "mehmet.demir@example.com", Department = it },
-            new Employee { Name = "Ayşe Kaya", Email = "ayse.kaya@example.com", Department = it },
-            new Employee { Name = "Zeynep Aydın", Email = "zeynep.aydin@example.com", Department = hr },
-            new Employee { Name = "İlayda Sokur", Email = "ilayda.sokur@example.com", Department = hr },
-            new Employee { Name = "Can Öztürk", Email = "can.ozturk@example.com", Department = finance }
+            new Employee { Name = "Mehmet Demir", Email = "mehmet.demir@example.com", Department = it, PasswordHash = hasher.HashPassword(new Employee(), "password1") },
+            new Employee { Name = "Ayşe Kaya", Email = "ayse.kaya@example.com", Department = it, PasswordHash = hasher.HashPassword(new Employee(), "password2") },
+            new Employee { Name = "Zeynep Aydın", Email = "zeynep.aydin@example.com", Department = hr, PasswordHash = hasher.HashPassword(new Employee(), "password3") },
+            new Employee { Name = "İlayda Sokur", Email = "ilayda.sokur@example.com", Department = hr, PasswordHash = hasher.HashPassword(new Employee(), "password4") },
+            new Employee { Name = "Can Öztürk", Email = "can.ozturk@example.com", Department = finance, PasswordHash = hasher.HashPassword(new Employee(), "password5") }
         );
 
         context.SaveChanges();
