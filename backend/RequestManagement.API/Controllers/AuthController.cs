@@ -1,5 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 [ApiController] //bu sınıfın bir api controller olduğunu belirtiyor
 [Route("api/[controller]")] //bu sınıfın route adresi api/auth olacak
@@ -28,6 +32,23 @@ public class AuthController : ControllerBase //.netin verdiği temel sınıf con
         {
             return Unauthorized("Invalid email or password.");
         }
-        return Ok("Login successful.");
+        var claims = new List <Claim>
+        {
+            new Claim(ClaimTypes.NameIdentifier, employee.Id.ToString()),
+            new Claim(ClaimTypes.Name, employee.Name),
+            new Claim("DepartmentId", employee.DepartmentId.ToString())
+        };
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+        var token = new JwtSecurityToken(
+            issuer: _configuration["Jwt:Issuer"],
+            claims: claims,
+            expires: DateTime.Now.AddHours(8),
+            signingCredentials: creds
+        );
+
+        var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+        return Ok(new { Token = tokenString });
     }
 }
