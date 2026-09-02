@@ -68,7 +68,9 @@ body {
 
 main {
   flex: 1;
+  min-height: 0;
   padding: 20px;
+  overflow-y: auto;
   font-family: Arial, sans-serif;
 }
 
@@ -170,7 +172,7 @@ main {
 
 /* ANASAYFATablo */
 
-.table-section, .request-form {
+.table-section {
   width: 95%;
   margin: 20px 30px;
   border-collapse: collapse;
@@ -219,9 +221,16 @@ main {
 /*  */
 /* Sidebar */
 
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 .layout {
   display: flex;
-  height: 100vh;
+  flex: 1;
+  min-height: 0;
 }
 
 .sidebar {
@@ -295,43 +304,90 @@ main {
 
 /* Talep Oluştur Form */
 
+.create-request-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100%;
+}
+
 .request-form {
   background-color: var(--surface);
   border: 1px solid var(--border);
+  border-radius: 8px;
   box-shadow: 0 2px 4px color-mix(in srgb, var(--text) 10%, transparent);
-  padding: 10px;
-  margin: 20px 30px 30px;
+  padding: 28px 36px;
+  max-width: 760px;
+  margin: 20px auto 30px;
   display: flex;
   flex-direction: column;
 }
 
 .request-form label {
   font-weight: bold;
-  margin: 10px 0 5px 0;
+  font-size: 14px;
+  color: var(--text);
+  margin: 12px 0 6px 0;
 }
 
 .request-form input,
 .request-form select,
 .request-form textarea {
-  padding: 10px;
+  padding: 10px 12px;
   border: 1px solid var(--border);
   border-radius: 4px;
   font-size: 14px;
+  font-family: inherit;
+  color: var(--text);
   width: 100%;
   box-sizing: border-box;
   margin-bottom: 10px;
+  transition: border-color 0.2s ease;
+}
+
+.request-form input:focus,
+.request-form select:focus,
+.request-form textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.request-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.request-form select {
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: var(--surface);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2362727C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 32px;
 }
 
 .request-form button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  align-self: flex-end;
   background-color: var(--primary);
   color: var(--surface);
   border: none;
-  padding: 10px 20px;
-  margin-top: 25px;
-  font-size: 16px;
+  padding: 10px 22px;
+  margin-top: 20px;
+  font-size: 15px;
+  font-weight: bold;
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.3s ease;
+}
+
+.request-form button:hover {
+  background-color: var(--primary-dark);
 }
 
 /* Talep Detay Sayfası */

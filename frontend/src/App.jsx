@@ -13,7 +13,7 @@ const [isRequestsOpen, setIsRequestsOpen] = useState(false)
 const location = useLocation()
 
   return (
-    <div>
+    <div className="app-shell">
       <header className="app-header">
         <div>
           <h1>Talep Yönetim Sistemi</h1>
