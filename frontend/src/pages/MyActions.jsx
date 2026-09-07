@@ -2,7 +2,7 @@ import '../App.css'
 import {useSearchParams} from 'react-router-dom'
 import  {useState, useEffect} from "react";
 import { useNavigate } from 'react-router-dom'
-import { priorityLabels, formatDate, CurrentUser } from "../labels";
+import { priorityLabels, formatDate, CurrentUser, authHeaders } from "../labels";
 
 function MyActions() {
 const [searchParams] = useSearchParams(); // URL'deki sorgu parametrelerini alır
@@ -13,7 +13,10 @@ const [selectedPriority, setSelectedPriority] = useState("Tüm Öncelikler");
 const [searchTerm, setSearchTerm] = useState("");
 
 useEffect(() => {
-    fetch("http://localhost:5145/api/request")
+    fetch("http://localhost:5145/api/request",
+        {
+            headers: authHeaders()
+        })
       .then((response) => response.json())
       .then((data) => setRequests(data))
       .catch((error) => console.error("Error fetching requests:", error));

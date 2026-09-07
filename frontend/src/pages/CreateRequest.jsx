@@ -1,4 +1,5 @@
 import '../App.css'
+import {authHeaders} from "../labels";
 import {useState, useEffect} from "react";
 function CreateRequest() {
 
@@ -9,7 +10,11 @@ function CreateRequest() {
     const [departments, setDepartments] = useState([]); // bütün departmanları tutuyoruz
 
     useEffect(() => {
-        fetch("http://localhost:5145/api/department") // backendden departmanları çekiyoruz
+        fetch("http://localhost:5145/api/department",
+            {
+                headers: authHeaders()
+            })
+            // backendden departmanları çekiyoruz
             .then((response) => response.json())
             .then((data) => setDepartments(data))
             .catch((error) => console.error("Error fetching departments:", error));
@@ -43,6 +48,7 @@ function CreateRequest() {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
+                            ...authHeaders()
                         },
                         body: JSON.stringify(newRequest),
                     })

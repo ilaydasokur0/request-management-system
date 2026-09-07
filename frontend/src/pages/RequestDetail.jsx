@@ -2,7 +2,7 @@ import '../App.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { statusLabels, priorityLabels } from "../labels";
-import { departmentLabels, formatDate, CurrentUser } from "../labels";
+import { departmentLabels, formatDate, CurrentUser, authHeaders } from "../labels";
 
 function RequestDetail() {
     const { id } = useParams();
@@ -14,7 +14,10 @@ function RequestDetail() {
     const commentsListRef = useRef(null);
 
     useEffect(() => {
-        fetch(`http://localhost:5145/api/request/${id}`)
+        fetch(`http://localhost:5145/api/request/${id}`
+            , {
+                headers: authHeaders()
+            })
             .then((response) => response.json())
             .then((data) => setRequest(data))
             .catch((error) => console.error("Error fetching request details:", error));
@@ -24,7 +27,10 @@ function RequestDetail() {
 
     useEffect(() => {
         if (!departmentId) return;
-        fetch(`http://localhost:5145/api/employee/${departmentId}`)
+        fetch(`http://localhost:5145/api/employee/${departmentId}`
+            , {
+                headers: authHeaders()
+            })
             .then((response) => response.json())
             .then((data) => setDepartmentEmployees(data))
             .catch((error) => console.error("Error fetching department employee:", error));
@@ -32,7 +38,10 @@ function RequestDetail() {
 , [request?.department?.id]);
 
     useEffect(() => {
-            fetch(`http://localhost:5145/api/comment/${id}`)
+            fetch(`http://localhost:5145/api/comment/${id}`
+                , {
+                    headers: authHeaders()
+                })
                 .then((response) => response.json())
                 .then((data) => setComments(data))
                 .catch((error) => console.error("Error fetching comments:", error));
@@ -66,13 +75,18 @@ function RequestDetail() {
                                         fetch(`http://localhost:5145/api/request/${id}/assign`, {
                                             method: "PATCH",
                                             headers: {
-                                                "Content-Type": "application/json"
+                                                "Content-Type": "application/json",
+                                                ...authHeaders()
                                             },
                                             body: JSON.stringify({
                                                 assignee: selectedEmployee?.name
                                             })
                                         })
-                                            .then(() => fetch(`http://localhost:5145/api/request/${id}`))
+                                            .then(() => fetch(`http://localhost:5145/api/request/${id}`,
+                                                {
+                                                    headers: authHeaders()
+                                                }
+                                            ))
                                             .then((response) => response.json())
                                             .then((data) => setRequest(data)); // talep detayları anlık olarak güncelleniyor
                                     }}
@@ -91,12 +105,17 @@ function RequestDetail() {
                                         fetch(`http://localhost:5145/api/request/${id}/complete`, {
                                             method: "PATCH",
                                             headers: {
-                                                "Content-Type": "application/json"
+                                                "Content-Type": "application/json",
+                                                ...authHeaders()
                                             },
                                             body: JSON.stringify({
                                             })
                                         })
-                                            .then(() => fetch(`http://localhost:5145/api/request/${id}`))
+                                            .then(() => fetch(`http://localhost:5145/api/request/${id}`,
+                                                {
+                                                    headers: authHeaders()
+                                                }
+                                            ))
                                             .then((response) => response.json())
                                             .then((data) => setRequest(data)); 
                                     }}
@@ -196,7 +215,8 @@ function RequestDetail() {
                                     fetch(`http://localhost:5145/api/comment`, {
                                         method: "POST",
                                         headers: {
-                                            "Content-Type": "application/json"
+                                            "Content-Type": "application/json",
+                                            ...authHeaders()
                                         },
                                         body: JSON.stringify({
                                             author: CurrentUser,
@@ -204,7 +224,11 @@ function RequestDetail() {
                                             message: newComment
                                         })
                                     })
-                                        .then(() => fetch(`http://localhost:5145/api/comment/${id}`))
+                                        .then(() => fetch(`http://localhost:5145/api/comment/${id}`,
+                                            {
+                                                headers: authHeaders()
+                                            }
+                                        ))
                                         .then((response) => response.json())
                                         .then((data) => {
                                             setComments(data);
