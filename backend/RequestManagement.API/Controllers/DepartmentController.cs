@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 [ApiController] //bu sınıfın bir api controller olduğunu belirtiyor
+[Authorize] //bu sınıfın authorize edilmesi gerektiğini belirtiyor
 [Route("api/[controller]")] //bu sınıfın route adresi api/department olacak
 public class DepartmentController : ControllerBase //.netin verdiği temel sınıf controllarbaseden kalıtım
 {
