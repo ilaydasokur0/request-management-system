@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 [ApiController] //bu sınıfın bir api controller olduğunu belirtiyor
 [Route("api/[controller]")] //bu sınıfın route adresi api/request olacak
+[Authorize] //bu sınıfın authorize edilmesi gerektiğini belirtiyor
 public class RequestController : ControllerBase //.netin verdiği temel sınıf controllarbaseden kalıtım
 {
         private readonly AppDbContext _context;
