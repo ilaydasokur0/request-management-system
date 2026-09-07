@@ -16,17 +16,11 @@ const isLoginPage = location.pathname === '/login'
 
   return (
     <div className="app-shell">
-      {!isLoginPage && (
-        <header className="app-header">
-          <div>
-            <h1>Talep Yönetim Sistemi</h1>
-          </div>
-
-          <div>
-            <span>Hoşgeldiniz, Kullanıcı!</span>
-          </div>
-        </header>
-      )}
+      <header className="app-header">
+        <div>
+          <h1>Talep Yönetim Sistemi</h1>
+        </div>
+      </header>
         <div className="layout">
           {!isLoginPage && (
           <nav className="sidebar">
@@ -81,7 +75,7 @@ const isLoginPage = location.pathname === '/login'
           </nav>
           )}
 
-        <main>
+        <main className={isLoginPage ? "main-fullscreen" : ""}>
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Home />} />

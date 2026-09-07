@@ -302,6 +302,89 @@ main {
   font-weight: bold;
 }
 
+/* Giriş Yap */
+
+main.main-fullscreen {
+  padding: 0;
+}
+
+.login-page {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+}
+
+.login-page .header {
+  text-align: center;
+}
+
+.login-page .header h1 {
+  color: var(--text-light);
+}
+
+.login-page .header p {
+  color: color-mix(in srgb, var(--text-light) 75%, transparent);
+}
+
+.login-page .header-line {
+  margin: 0 auto;
+  border-bottom-color: color-mix(in srgb, var(--text-light) 30%, transparent);
+}
+
+.login-form {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px color-mix(in srgb, var(--text) 10%, transparent);
+  padding: 28px 32px;
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.login-form label {
+  font-weight: bold;
+  font-size: 14px;
+  color: var(--text);
+  margin: 12px 0 6px;
+}
+
+.login-form input {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text);
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.login-form button {
+  margin-top: 22px;
+  background-color: var(--primary);
+  color: var(--surface);
+  border: none;
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-form button:hover {
+  background-color: var(--primary-dark);
+}
+
 /* Talep Oluştur Form */
 
 .create-request-page {
