@@ -32,3 +32,15 @@ export function authHeaders(){
         "Authorization": `Bearer ${localStorage.getItem("token")}`
     }
 }
+
+export function getCurrentUser() {
+    const token = localStorage.getItem("token");
+    if (!token) return null;
+
+    const payload = token.split(".")[1];
+    const bytes = Uint8Array.from(atob(payload), (c) => c.charCodeAt(0));
+    const json = new TextDecoder().decode(bytes);
+    return JSON.parse(json);
+}
+
+

@@ -32,12 +32,13 @@ public class AuthController : ControllerBase //.netin verdiği temel sınıf con
         {
             return Unauthorized("Invalid email or password.");
         }
-        var claims = new List <Claim>
+        var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.NameIdentifier, employee.Id.ToString()),
-            new Claim(ClaimTypes.Name, employee.Name),
+            new Claim("id", employee.Id.ToString()),
+            new Claim("name", employee.Name),
             new Claim("DepartmentId", employee.DepartmentId.ToString())
         };
+
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
