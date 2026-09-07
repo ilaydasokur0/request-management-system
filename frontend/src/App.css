@@ -336,10 +336,10 @@ main.main-fullscreen {
 .login-form {
   background-color: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  box-shadow: 0 2px 4px color-mix(in srgb, var(--text) 10%, transparent);
-  padding: 28px 32px;
-  width: 340px;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--primary-dark) 30%, transparent);
+  padding: 32px 34px;
+  width: 360px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -347,42 +347,59 @@ main.main-fullscreen {
 
 .login-form label {
   font-weight: bold;
-  font-size: 14px;
-  color: var(--text);
+  font-size: 13px;
+  color: var(--text-secondary);
   margin: 12px 0 6px;
 }
 
+.login-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.login-input-wrapper svg {
+  position: absolute;
+  left: 12px;
+  color: var(--text-secondary);
+  pointer-events: none;
+}
+
 .login-form input {
-  padding: 10px 12px;
+  width: 100%;
+  padding: 10px 12px 10px 36px;
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 14px;
   font-family: inherit;
   color: var(--text);
   box-sizing: border-box;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .login-form input:focus {
   outline: none;
   border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 15%, transparent);
 }
 
 .login-form button {
-  margin-top: 22px;
+  margin-top: 24px;
   background-color: var(--primary);
   color: var(--surface);
   border: none;
-  padding: 10px 20px;
+  padding: 11px 20px;
   font-size: 15px;
   font-weight: bold;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
 
 .login-form button:hover {
   background-color: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px color-mix(in srgb, var(--primary-dark) 40%, transparent);
 }
 
 /* Talep Oluştur Form */
