@@ -1,9 +1,10 @@
 import '../App.css'
-import {useState, useEffect} from "react";
+import {useState} from "react";
+import { useNavigate } from 'react-router-dom';
 
 
 function Login() {
-
+const navigate = useNavigate();
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
 
@@ -23,7 +24,27 @@ const [password, setPassword] = useState("");
                             email: email,
                             password: password,
                         };
-                        console.log(loginData);
+                        fetch("http://localhost:5145/api/auth/login", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(loginData),
+                        })
+                        .then((response) => {
+                            if (!response.ok) {
+                                throw new Error("Network response was not ok");
+                            }
+                            return response.json();
+                        })
+                        .then((data) => {
+                            localStorage.setItem("token", data.token);
+                            navigate("/");
+                        })
+                        .catch((error) => {
+                            console.error("Error during login:", error);
+                            alert("Giriş başarısız. Lütfen bilgilerinizi kontrol edin.");
+                        });
                     }}
                     >
                         <label htmlFor="email">Email:</label>
