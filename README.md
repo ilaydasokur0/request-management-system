@@ -90,11 +90,11 @@ Frontend varsayılan olarak `http://localhost:5173` üzerinde çalışır (backe
 - [x] appsettings.json'da imzalama anahtarı (key/issuer)
 - [x] Program.cs'te JWT doğrulama servisi ve middleware
 - [x] `POST /api/auth/login` — token üretimi
-- [ ] Mevcut endpoint'leri `[Authorize]` ile koruma
+- [x] Mevcut endpoint'leri `[Authorize]` ile koruma (`AuthController` hariç)
 
 **Frontend**
-- [ ] Login sayfası
-- [ ] Token'ı `fetch` isteklerine ekleme (Authorization header)
+- [x] Login sayfası
+- [x] Token'ı `fetch` isteklerine ekleme (Authorization header)
 - [ ] `labels.js`'teki sahte `CurrentUser`/`CurrentUserDepartment` sabitlerini gerçek login verisiyle değiştirme
 - [ ] Login olmadan sayfalara erişimi engelleme (route koruması)
 - [ ] Logout
