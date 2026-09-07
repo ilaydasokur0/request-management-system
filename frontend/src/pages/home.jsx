@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import { statusLabels, priorityLabels, formatDate, CurrentUser, CurrentUserDepartment, authHeaders } from "../labels";
+import { statusLabels, priorityLabels, formatDate, getCurrentUser, authHeaders } from "../labels";
 
 function Home() {
   const navigate = useNavigate();
@@ -17,10 +17,12 @@ function Home() {
       .catch((error) => console.error("Error fetching requests:", error));
   }, []);
 
+  const currentUser = getCurrentUser();
+
   const filteredRequests = requests
-    .filter((request) => request.department.name === CurrentUserDepartment)
+    .filter((request) => request.department.id === Number(currentUser.DepartmentId))
     .filter((request) => request.status === "Pending")
-    .filter((request) => request.requester !== CurrentUser)
+    .filter((request) => request.requester !== currentUser.name)
     .filter((request) => selectedPriority === "Tüm Öncelikler" || request.priority === selectedPriority)
     .filter((request) => request.title.toLowerCase().includes(searchTerm.toLowerCase()) || request.requester.toLowerCase().includes(searchTerm.toLowerCase()));
 
