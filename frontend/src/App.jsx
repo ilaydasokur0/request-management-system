@@ -7,11 +7,14 @@ import { useState } from 'react'
 import MyRequests from './pages/MyRequests'
 import RequestDetail from './pages/RequestDetail'
 import Login from './pages/Login'
+import ProtectedRoute from './components/ProtectedRoute'
+import { useNavigate } from 'react-router-dom'
 
 function App() {
 const [isActionsOpen, setIsActionsOpen] = useState(false)
 const [isRequestsOpen, setIsRequestsOpen] = useState(false)
 const location = useLocation()
+const navigate = useNavigate()
 const isLoginPage = location.pathname === '/login'
 
   return (
@@ -66,10 +69,13 @@ const isLoginPage = location.pathname === '/login'
                 )}
               </li>
               <li>
-                <Link to="/logout" className={location.pathname === "/logout" ? "active" : ""}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/></svg>
-                  Ayarlar
-                </Link>
+                <button onClick={() => {
+                  localStorage.removeItem("token");
+                  navigate("/login");
+                }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                  Çıkış Yap
+                </button>
               </li>
             </ul>
           </nav>
@@ -78,12 +84,12 @@ const isLoginPage = location.pathname === '/login'
         <main className={isLoginPage ? "main-fullscreen" : ""}>
           <Routes>
             <Route path="/login" element={<Login />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/create-request" element={<CreateRequest />} />
-            <Route path="/my-requests" element={<MyRequests />} />
-            <Route path="/my-actions" element={<MyActions />} />
-            <Route path="/logout" element={<div>Ayarlar</div>} />
-            <Route path="/request/:id" element={<RequestDetail />} />
+            <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+            <Route path="/create-request" element={<ProtectedRoute><CreateRequest /></ProtectedRoute>} />
+            <Route path="/my-requests" element={<ProtectedRoute><MyRequests /></ProtectedRoute>} />
+            <Route path="/my-actions" element={<ProtectedRoute><MyActions /></ProtectedRoute>} />
+            <Route path="/logout" element={<ProtectedRoute><div>Ayarlar</div></ProtectedRoute>} />
+            <Route path="/request/:id" element={<ProtectedRoute><RequestDetail /></ProtectedRoute>} />
           </Routes>
         </main>
       </div>
