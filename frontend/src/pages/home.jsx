@@ -9,7 +9,9 @@ function Home() {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5145/api/request")
+    fetch("http://localhost:5145/api/request", {
+      headers: authHeaders()     
+    })
       .then((response) => response.json())
       .then((data) => setRequests(data))
       .catch((error) => console.error("Error fetching requests:", error));

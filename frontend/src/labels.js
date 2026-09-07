@@ -26,3 +26,9 @@ export const formatDate = (dateString) => {
 
 export const CurrentUser = "İlayda Sokur"
 export const CurrentUserDepartment = "HR"
+
+export function authHeaders(){
+    return {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+    }
+}
