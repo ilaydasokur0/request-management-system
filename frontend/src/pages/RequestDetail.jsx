@@ -2,7 +2,7 @@ import '../App.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { statusLabels, priorityLabels } from "../labels";
-import { departmentLabels, formatDate, CurrentUser, authHeaders } from "../labels";
+import { departmentLabels, formatDate, getCurrentUser, authHeaders } from "../labels";
 
 function RequestDetail() {
     const { id } = useParams();
@@ -12,6 +12,7 @@ function RequestDetail() {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const commentsListRef = useRef(null);
+    const currentUser = getCurrentUser();
 
     useEffect(() => {
         fetch(`http://localhost:5145/api/request/${id}`
@@ -66,7 +67,7 @@ function RequestDetail() {
                             <button className="back-button" onClick={() => navigate(-1)}>
                                 ◀ Geri Dön
                             </button>
-                            {request.status == "Pending" && request.requester !==   CurrentUser && (
+                            {request.status == "Pending" && request.requester !==   currentUser.name && (
                                 <select
                                     onChange={(e) => {
                                         const selectedId = e.target.value;
@@ -91,7 +92,7 @@ function RequestDetail() {
                                             .then((data) => setRequest(data)); // talep detayları anlık olarak güncelleniyor
                                     }}
                                 >
-                                    <option value="Talebi Atayın">Talebi Atayın</option>
+                                    <option value="Talebi Atayın" hidden>Talebi Atayın</option>
                                     {departmentEmployees.filter((employee) => employee.name !== request.requester).map((employee) => (
                                         <option key={employee.id} value={employee.id}>
                                             {employee.name}
@@ -99,7 +100,7 @@ function RequestDetail() {
                                     ))}
                                 </select>
                             )}
-                            {request.status == "InProgress" && request.assignee ===   CurrentUser && (
+                            {request.status == "InProgress" && request.assignee ===   currentUser.name && (
                                 <button value="Talebi Tamamla" className="complete-button"
                                     onClick={(e)=> {
                                         fetch(`http://localhost:5145/api/request/${id}/complete`, {
@@ -178,7 +179,7 @@ function RequestDetail() {
                                 </div>
                             )}
                         </div>
-                        {request.status !== "Pending" && (request.assignee === CurrentUser || request.requester === CurrentUser) && (
+                        {request.status !== "Pending" && (request.assignee === currentUser.name || request.requester === currentUser.name) && (
                         <section className="comments-section">
                             <h2>Yorumlar</h2>
                             <div className="request-detail-comments" ref={commentsListRef}>
@@ -219,7 +220,7 @@ function RequestDetail() {
                                             ...authHeaders()
                                         },
                                         body: JSON.stringify({
-                                            author: CurrentUser,
+                                            author: currentUser.name,
                                             requestId: Number(id),
                                             message: newComment
                                         })

@@ -9,7 +9,6 @@ import RequestDetail from './pages/RequestDetail'
 import Login from './pages/Login'
 import ProtectedRoute from './components/ProtectedRoute'
 import { useNavigate } from 'react-router-dom'
-import { getCurrentUser } from './labels'
 
 function App() {
 const [isActionsOpen, setIsActionsOpen] = useState(false)
@@ -17,7 +16,6 @@ const [isRequestsOpen, setIsRequestsOpen] = useState(false)
 const location = useLocation()
 const navigate = useNavigate()
 const isLoginPage = location.pathname === '/login'
-console.log("Current User:", getCurrentUser()) // CurrentUser değerini konsola yazdır
   return (
     <div className="app-shell">
       <header className="app-header">

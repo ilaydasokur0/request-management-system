@@ -2,7 +2,7 @@ import '../App.css'
 import {useSearchParams} from 'react-router-dom'
 import  {useState, useEffect} from "react";
 import { useNavigate } from 'react-router-dom'
-import { priorityLabels, formatDate, CurrentUser, authHeaders } from "../labels";
+import { priorityLabels, formatDate, getCurrentUser, authHeaders } from "../labels";
 
 function MyActions() {
 const [searchParams] = useSearchParams(); // URL'deki sorgu parametrelerini alır
@@ -29,9 +29,9 @@ const myActions = requests.filter((request) => {
         return request.status === 'InProgress';
     }
 });
-
+const currentUser = getCurrentUser();
 const filteredActions = myActions
-    .filter((request) => request.assignee === CurrentUser)
+    .filter((request) => request.assignee === currentUser.name)
     .filter((request) => selectedPriority === "Tüm Öncelikler" || request.priority === selectedPriority)
     .filter((request) => request.title.toLowerCase().includes(searchTerm.toLowerCase()) || request.requester.toLowerCase().includes(searchTerm.toLowerCase()));
 

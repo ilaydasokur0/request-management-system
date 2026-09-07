@@ -24,9 +24,6 @@ export const formatDate = (dateString) => {
     return `${day}/${month}/${year}`;
 }
 
-export const CurrentUser = "İlayda Sokur"
-export const CurrentUserDepartment = "HR"
-
 export function authHeaders(){
     return {
         "Authorization": `Bearer ${localStorage.getItem("token")}`

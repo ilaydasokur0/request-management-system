@@ -2,7 +2,7 @@ import '../App.css';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { statusLabels, priorityLabels, formatDate, CurrentUser, authHeaders } from "../labels";
+import { statusLabels, priorityLabels, formatDate, getCurrentUser, authHeaders } from "../labels";
 
 
 function MyRequests() {
@@ -12,6 +12,7 @@ function MyRequests() {
     const [requests, setRequests] = useState([]);
     const [selectedPriority, setSelectedPriority] = useState("Tüm Öncelikler");
     const [searchTerm, setSearchTerm] = useState("");
+    const currentUser = getCurrentUser();
     useEffect(() => {
         fetch("http://localhost:5145/api/request"
             , {
@@ -24,14 +25,14 @@ function MyRequests() {
 
     const myRequests = requests.filter((request) => {
         if (view === 'past') {
-            return request.status === 'Completed' && request.requester === CurrentUser;
+            return request.status === 'Completed' && request.requester === currentUser.name;
         } else {
-            return request.status !== 'Completed' && request.requester === CurrentUser;
+            return request.status !== 'Completed' && request.requester === currentUser.name;
         }
     });
 
     const filteredRequests = myRequests
-        .filter((request) => request.requester === CurrentUser)
+        .filter((request) => request.requester === currentUser.name)
         .filter((request) => selectedPriority === "Tüm Öncelikler" || request.priority === selectedPriority)
         .filter((request) => request.title.toLowerCase().includes(searchTerm.toLowerCase()) || request.assignee.toLowerCase().includes(searchTerm.toLowerCase()));
 

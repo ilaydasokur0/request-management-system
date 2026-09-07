@@ -95,6 +95,6 @@ Frontend varsayılan olarak `http://localhost:5173` üzerinde çalışır (backe
 **Frontend**
 - [x] Login sayfası
 - [x] Token'ı `fetch` isteklerine ekleme (Authorization header)
-- [ ] `labels.js`'teki sahte `CurrentUser`/`CurrentUserDepartment` sabitlerini gerçek login verisiyle değiştirme
+- [x] `labels.js`'teki sahte `CurrentUser`/`CurrentUserDepartment` sabitlerini gerçek login verisiyle değiştirme
 - [x] Login olmadan sayfalara erişimi engelleme (route koruması)
 - [x] Logout
