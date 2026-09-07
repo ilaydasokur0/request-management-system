@@ -313,7 +313,16 @@ main.main-fullscreen {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+  background-color: var(--primary-dark);
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      color-mix(in srgb, var(--text-light) 7%, transparent) 0px,
+      color-mix(in srgb, var(--text-light) 7%, transparent) 1px,
+      transparent 1px,
+      transparent 14px
+    ),
+    linear-gradient(160deg, var(--primary-dark) 0%, var(--primary-dark) 55%, var(--primary) 100%);
 }
 
 .login-page .header {
