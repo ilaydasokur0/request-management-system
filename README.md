@@ -103,7 +103,7 @@ Frontend varsayılan olarak `http://localhost:5173` üzerinde çalışır (backe
 
 **Güvenlik**
 - [ ] Talep atama/tamamlama endpoint'lerinde departman sahiplik kontrolü — şu an `[Authorize]` sadece "giriş yapmış mı" diye bakıyor, "bu talep onun departmanında mı" diye bakmıyor. Teorik olarak giriş yapmış herhangi biri, kendi departmanı dışındaki bir talebi de atayabilir/tamamlayabilir.
-- [ ] Token süresi dolduğunda kullanıcıyı otomatik `/login`'e yönlendirme — şu an token geçersiz olduğunda sayfalar sessizce boş görünüyor, kullanıcı sebebini anlamıyor.
+- [x] Token süresi dolduğunda/geçersiz olduğunda kullanıcıyı otomatik `/login`'e yönlendirme — `labels.js`'teki `apiFetch` yardımcı fonksiyonu tüm istekleri sarmalıyor, 401 cevabında token'ı silip yönlendiriyor; sayfalar da render sırasında `currentUser` null gelirse aynı şekilde yönlendiriyor.
 
 **Diğer**
 - [ ] Talep/yorum/çalışan silme (DELETE) işlemleri

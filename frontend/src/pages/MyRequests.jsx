@@ -1,8 +1,8 @@
 import '../App.css';
 import { useSearchParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { statusLabels, priorityLabels, formatDate, getCurrentUser, authHeaders } from "../labels";
+import { statusLabels, priorityLabels, formatDate, getCurrentUser, apiFetch } from "../labels";
 
 
 function MyRequests() {
@@ -13,16 +13,17 @@ function MyRequests() {
     const [selectedPriority, setSelectedPriority] = useState("Tüm Öncelikler");
     const [searchTerm, setSearchTerm] = useState("");
     const currentUser = getCurrentUser();
+    
     useEffect(() => {
-        fetch("http://localhost:5145/api/request"
-            , {
-                headers: authHeaders()
-            })
-            .then((response) => response.json())
+        apiFetch("http://localhost:5145/api/request")
             .then((data) => setRequests(data))
             .catch((error) => console.error("Error fetching requests:", error));
     }, []);
 
+    if (!currentUser) {
+            return <Navigate to="/login" replace />;
+        }
+        
     const myRequests = requests.filter((request) => {
         if (view === 'past') {
             return request.status === 'Completed' && request.requester === currentUser.name;

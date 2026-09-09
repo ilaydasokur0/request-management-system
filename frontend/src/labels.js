@@ -40,4 +40,26 @@ export function getCurrentUser() {
     return JSON.parse(json);
 }
 
+export function apiFetch(url, options = {}) {
+    return fetch(url, {
+        ...options,
+        headers: {
+            ...options.headers,
+            ...authHeaders(),
+        }
+    }).then((response) => {
+        if (response.status === 401) {
+            localStorage.removeItem("token");
+            window.location.href = "/login";
+            return Promise.reject(new Error("Unauthorized"));
+        }
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        if (response.status === 204) {
+            return null; //boş gövdeli cevaplarda (örn. PATCH sonrası) .json() çağırmıyoruz
+        }
+        return response.json();
+    });
+}
 

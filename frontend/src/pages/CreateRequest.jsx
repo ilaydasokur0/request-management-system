@@ -1,5 +1,5 @@
 import '../App.css'
-import {authHeaders} from "../labels";
+import {apiFetch} from "../labels";
 import {useState, useEffect} from "react";
 function CreateRequest() {
 
@@ -10,16 +10,12 @@ function CreateRequest() {
     const [departments, setDepartments] = useState([]); // bütün departmanları tutuyoruz
 
     useEffect(() => {
-        fetch("http://localhost:5145/api/department",
-            {
-                headers: authHeaders()
-            })
+        apiFetch("http://localhost:5145/api/department")
             // backendden departmanları çekiyoruz
-            .then((response) => response.json())
             .then((data) => setDepartments(data))
             .catch((error) => console.error("Error fetching departments:", error));
     }
-, []); 
+, []);
 
     return (
         <section className="create-request-page">
@@ -44,19 +40,12 @@ function CreateRequest() {
                     setDescription("");
                     setPriority("");
                     setDepartment("");
-                    fetch("http://localhost:5145/api/request", {
+                    apiFetch("http://localhost:5145/api/request", {
                         method: "POST",
                         headers: {
-                            "Content-Type": "application/json",
-                            ...authHeaders()
+                            "Content-Type": "application/json"
                         },
                         body: JSON.stringify(newRequest),
-                    })
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error("Network response was not ok");
-                        }
-                        return response.json();
                     })
                     .then((data) => {
                         console.log("Request created successfully:", data)

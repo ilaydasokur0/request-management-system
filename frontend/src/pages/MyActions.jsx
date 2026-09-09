@@ -1,8 +1,8 @@
 import '../App.css'
 import {useSearchParams} from 'react-router-dom'
 import  {useState, useEffect} from "react";
-import { useNavigate } from 'react-router-dom'
-import { priorityLabels, formatDate, getCurrentUser, authHeaders } from "../labels";
+import { useNavigate, Navigate } from 'react-router-dom'
+import { priorityLabels, formatDate, getCurrentUser, apiFetch } from "../labels";
 
 function MyActions() {
 const [searchParams] = useSearchParams(); // URL'deki sorgu parametrelerini alır
@@ -13,11 +13,7 @@ const [selectedPriority, setSelectedPriority] = useState("Tüm Öncelikler");
 const [searchTerm, setSearchTerm] = useState("");
 
 useEffect(() => {
-    fetch("http://localhost:5145/api/request",
-        {
-            headers: authHeaders()
-        })
-      .then((response) => response.json())
+    apiFetch("http://localhost:5145/api/request")   
       .then((data) => setRequests(data))
       .catch((error) => console.error("Error fetching requests:", error));
   }, []);
@@ -30,6 +26,10 @@ const myActions = requests.filter((request) => {
     }
 });
 const currentUser = getCurrentUser();
+if (!currentUser) {
+    return <Navigate to="/login" replace />;
+}
+
 const filteredActions = myActions
     .filter((request) => request.assignee === currentUser.name)
     .filter((request) => selectedPriority === "Tüm Öncelikler" || request.priority === selectedPriority)

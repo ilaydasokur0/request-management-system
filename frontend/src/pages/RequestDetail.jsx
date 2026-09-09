@@ -1,8 +1,8 @@
 import '../App.css';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Navigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { statusLabels, priorityLabels } from "../labels";
-import { departmentLabels, formatDate, getCurrentUser, authHeaders } from "../labels";
+import { departmentLabels, formatDate, getCurrentUser, apiFetch } from "../labels";
 
 function RequestDetail() {
     const { id } = useParams();
@@ -13,37 +13,27 @@ function RequestDetail() {
     const [newComment, setNewComment] = useState("");
     const commentsListRef = useRef(null);
     const currentUser = getCurrentUser();
+    
 
     useEffect(() => {
-        fetch(`http://localhost:5145/api/request/${id}`
-            , {
-                headers: authHeaders()
-            })
-            .then((response) => response.json())
+        apiFetch(`http://localhost:5145/api/request/${id}`)
             .then((data) => setRequest(data))
             .catch((error) => console.error("Error fetching request details:", error));
     }, [id]);
 
+    
     const departmentId = request?.department?.id;
 
     useEffect(() => {
         if (!departmentId) return;
-        fetch(`http://localhost:5145/api/employee/${departmentId}`
-            , {
-                headers: authHeaders()
-            })
-            .then((response) => response.json())
+        apiFetch(`http://localhost:5145/api/employee/${departmentId}`)
             .then((data) => setDepartmentEmployees(data))
             .catch((error) => console.error("Error fetching department employee:", error));
     }
 , [request?.department?.id]);
 
     useEffect(() => {
-            fetch(`http://localhost:5145/api/comment/${id}`
-                , {
-                    headers: authHeaders()
-                })
-                .then((response) => response.json())
+            apiFetch(`http://localhost:5145/api/comment/${id}`)
                 .then((data) => setComments(data))
                 .catch((error) => console.error("Error fetching comments:", error));
         }, [id]);
@@ -54,6 +44,10 @@ function RequestDetail() {
         }
     }, [comments]);
 
+    if (!currentUser) {
+                return <Navigate to="/login" replace />;
+            }
+            
     if (!request) {
         return <div>Loading...</div>;
     }
@@ -73,22 +67,16 @@ function RequestDetail() {
                                         const selectedId = e.target.value;
                                         const selectedEmployee = departmentEmployees.find((employee) => employee.id === parseInt(selectedId));
 
-                                        fetch(`http://localhost:5145/api/request/${id}/assign`, {
+                                        apiFetch(`http://localhost:5145/api/request/${id}/assign`, {
                                             method: "PATCH",
                                             headers: {
-                                                "Content-Type": "application/json",
-                                                ...authHeaders()
+                                                "Content-Type": "application/json"
                                             },
                                             body: JSON.stringify({
                                                 assignee: selectedEmployee?.name
                                             })
                                         })
-                                            .then(() => fetch(`http://localhost:5145/api/request/${id}`,
-                                                {
-                                                    headers: authHeaders()
-                                                }
-                                            ))
-                                            .then((response) => response.json())
+                                            .then(() => apiFetch(`http://localhost:5145/api/request/${id}`))
                                             .then((data) => setRequest(data)); // talep detayları anlık olarak güncelleniyor
                                     }}
                                 >
@@ -103,22 +91,16 @@ function RequestDetail() {
                             {request.status == "InProgress" && request.assignee ===   currentUser.name && (
                                 <button value="Talebi Tamamla" className="complete-button"
                                     onClick={(e)=> {
-                                        fetch(`http://localhost:5145/api/request/${id}/complete`, {
+                                        apiFetch(`http://localhost:5145/api/request/${id}/complete`, {
                                             method: "PATCH",
                                             headers: {
-                                                "Content-Type": "application/json",
-                                                ...authHeaders()
+                                                "Content-Type": "application/json"
                                             },
                                             body: JSON.stringify({
                                             })
                                         })
-                                            .then(() => fetch(`http://localhost:5145/api/request/${id}`,
-                                                {
-                                                    headers: authHeaders()
-                                                }
-                                            ))
-                                            .then((response) => response.json())
-                                            .then((data) => setRequest(data)); 
+                                            .then(() => apiFetch(`http://localhost:5145/api/request/${id}`))
+                                            .then((data) => setRequest(data));
                                     }}
                                 >
                                     Talebi Tamamla
@@ -213,11 +195,10 @@ function RequestDetail() {
                                         return;
                                     }
                                     setNewComment(""); // yorum gönderildikten sonra textarea temizleniyor
-                                    fetch(`http://localhost:5145/api/comment`, {
+                                    apiFetch(`http://localhost:5145/api/comment`, {
                                         method: "POST",
                                         headers: {
-                                            "Content-Type": "application/json",
-                                            ...authHeaders()
+                                            "Content-Type": "application/json"
                                         },
                                         body: JSON.stringify({
                                             author: currentUser.name,
@@ -225,12 +206,7 @@ function RequestDetail() {
                                             message: newComment
                                         })
                                     })
-                                        .then(() => fetch(`http://localhost:5145/api/comment/${id}`,
-                                            {
-                                                headers: authHeaders()
-                                            }
-                                        ))
-                                        .then((response) => response.json())
+                                        .then(() => apiFetch(`http://localhost:5145/api/comment/${id}`))
                                         .then((data) => {
                                             setComments(data);
                                             alert("Yorum başarıyla gönderildi!");
